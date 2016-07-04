@@ -1,4 +1,4 @@
-package com.epsoft.webapps.iprofile.model;
+package com.epsoft.webapps.iprofile.model.person;
 
 import org.springframework.stereotype.Repository;
 

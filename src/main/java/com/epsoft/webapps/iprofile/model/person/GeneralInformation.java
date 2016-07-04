@@ -1,8 +1,10 @@
-package com.epsoft.webapps.iprofile.model;
+package com.epsoft.webapps.iprofile.model.person;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+
+import com.epsoft.webapps.iprofile.model.constant.Cuntry;
 
 @Repository
 public class GeneralInformation {
@@ -13,10 +15,11 @@ public class GeneralInformation {
     private int cityOfBirth;
     private int cuntryOfLive;
     private int cityOfLive;
-    private List<String> citizenship;
-    private String nationality;
+    private List<Cuntry> citizenship;
+    private Cuntry nationality;
     private Boolean isMaried;
     private int countChildren;
+    private boolean isMan;
 
     public GeneralInformation() {
 
@@ -78,19 +81,19 @@ public class GeneralInformation {
         this.cityOfLive = cityOfLive;
     }
 
-    public List<String> getCitizenship() {
+    public List<Cuntry> getCitizenship() {
         return citizenship;
     }
 
-    public void setCitizenship(List<String> citizenship) {
+    public void setCitizenship(List<Cuntry> citizenship) {
         this.citizenship = citizenship;
     }
 
-    public String getNationality() {
+    public Cuntry getNationality() {
         return nationality;
     }
 
-    public void setNationality(String nationality) {
+    public void setNationality(Cuntry nationality) {
         this.nationality = nationality;
     }
 
@@ -109,5 +112,15 @@ public class GeneralInformation {
     public void setCountChildren(int countChildren) {
         this.countChildren = countChildren;
     }
+
+    public boolean isMan() {
+        return isMan;
+    }
+
+    public void setMan(boolean isMan) {
+        this.isMan = isMan;
+    }
+
+    
 
 }
