@@ -1,19 +1,22 @@
-package com.epsoft.webapps.iprofile.model.person;
+package com.epsoft.webapps.iprofile.model.person.profiles;
 
 import org.springframework.stereotype.Repository;
 
+import com.epsoft.webapps.iprofile.model.person.GeneralInformation;
+import com.epsoft.webapps.iprofile.model.person.Look;
 import com.epsoft.webapps.iprofile.model.person.base.ProfessionalSkills;
 
 @Repository
-public class Profile {
+public class EmployeeProfile implements Profile{
     private Look look;
     private GeneralInformation generalInformation;
     private ProfessionalSkills professionalSkils;
+    private String contactInformation;
 
-    public Profile() {
+    public EmployeeProfile() {
     }
 
-    public Profile(Look look, GeneralInformation generalInformation, ProfessionalSkills professionalSkils) {
+    public EmployeeProfile(Look look, GeneralInformation generalInformation, ProfessionalSkills professionalSkils) {
         this.look = look;
         this.generalInformation = generalInformation;
         this.professionalSkils = professionalSkils;
@@ -41,6 +44,18 @@ public class Profile {
 
     public void setProfessionalSkils(ProfessionalSkills professionalSkils) {
         this.professionalSkils = professionalSkils;
+    }
+
+    public String getContactInformation() {
+        return contactInformation;
+    }
+
+    public void setContactInformation(String contactInformation) {
+        this.contactInformation = contactInformation;
+    }
+
+    public boolean isEmployee() {
+        return true;
     }
 
 }

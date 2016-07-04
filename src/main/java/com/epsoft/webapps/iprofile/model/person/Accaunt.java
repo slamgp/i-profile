@@ -3,6 +3,9 @@ package com.epsoft.webapps.iprofile.model.person;
 import org.springframework.stereotype.Repository;
 
 import com.epsoft.webapps.iprofile.model.constant.AppLanguage;
+import com.epsoft.webapps.iprofile.model.person.base.Permition;
+import com.epsoft.webapps.iprofile.model.person.profiles.EmployeeProfile;
+import com.epsoft.webapps.iprofile.model.person.profiles.Profile;
 
 @Repository
 public class Accaunt {
@@ -10,6 +13,7 @@ public class Accaunt {
     private String password;
     private Profile profile;
     private AppLanguage appLanguage;
+    private Permition permition;
 
     public Accaunt() {
     }
@@ -39,7 +43,7 @@ public class Accaunt {
         return profile;
     }
 
-    public void setProfile(Profile profile) {
+    public void setProfile(EmployeeProfile profile) {
         this.profile = profile;
     }
 

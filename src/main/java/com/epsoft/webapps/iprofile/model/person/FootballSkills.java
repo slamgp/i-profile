@@ -7,15 +7,13 @@ import com.epsoft.webapps.iprofile.model.person.base.ProfessionalSkills;
 public class FootballSkills extends ProfessionalSkills{
     private FootballPortfolio portfolio;
     private FootballPositions favoritePosition; 
-    private String reviews;
 
     public FootballSkills() {
     } 
 
-    public FootballSkills(FootballPortfolio portfolio, FootballPositions favoritePosition, String reviews) {
+    public FootballSkills(FootballPortfolio portfolio, FootballPositions favoritePosition) {
         this.portfolio = portfolio;
         this.favoritePosition = favoritePosition;
-        this.reviews = reviews;
     }
 
     public FootballPortfolio getPortfolio() {
@@ -34,13 +32,4 @@ public class FootballSkills extends ProfessionalSkills{
         this.favoritePosition = favoritePosition;
     }
 
-    public String getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(String reviews) {
-        this.reviews = reviews;
-    } 
-
-    
 }
