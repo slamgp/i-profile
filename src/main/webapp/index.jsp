@@ -69,6 +69,7 @@
                                         <span class="hide-password">Show</span>
               </div>
             </div>
+
             <div class="simform__actions">
               <input class="sumbit" name="commit" type="sumbit" value="Log In" />
               <span class="simform__actions-sidetext"><a class="special" role="link" href="#">Forgot your password?<br>Click here</a></span>
