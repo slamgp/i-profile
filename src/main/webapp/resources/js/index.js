@@ -24,7 +24,7 @@ var LoginModalController = {
     },
     
     setState: function (state) {
-    	var base = this,
+        var base = this,
             elem = null;
         
         if (!state) {
@@ -32,7 +32,7 @@ var LoginModalController = {
         }
         
         if (base.tabsElement) {
-        	elem = $(base.tabsElement[state]);
+            elem = $(base.tabsElement[state]);
             elem.addClass("current");
             $("." + elem.attr("data-tabtar")).addClass("show");
         }
@@ -53,7 +53,7 @@ var LoginModalController = {
     },
    
     addClickEvents: function () {
-    	var base = this;
+        var base = this;
         
         base.hidePassword.on("click", function (e) {
             var $this = $(this),
@@ -94,10 +94,38 @@ var LoginModalController = {
         
         return base;
     },
+  
+    divContentRequestPOST: function () {
+        $.ajax({
+            url: '/sport/content',
+            type: 'POST',            
+            dataType : 'json',     
+            contentType: 'application/json',
+            mimeType: 'application/json',
+            success: function (data, textStatus) {
+                alert("data " + data);
+                $("#mainContext").html(data.name);
+            },
+            error : function(e) {
+                console.log("ERROR: ", e);
+            }
+        });
+    },
     
+    divContentRequest: function divContentRequest() {
+        var redirect = '/i-profile/welcome';
+        history.pushState('', '', redirect);
+        $.get(redirect, function( data ) {
+            $('.logmod').html(data);
+        });
+    },
+
     initialize: function () {
         var base = this;
-        
+        var buttons = $('.logmod__tab.lgm-2').find('.sumbit');
+        buttons.on('click', function(){
+            base.divContentRequest();
+        });
         base.findElements().setState().getActiveTab().addClickEvents();
     }
 };
