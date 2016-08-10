@@ -115,7 +115,9 @@ var LoginModalController = {
     divContentRequest: function divContentRequest() {
         var redirect = '/i-profile/welcome';
         history.pushState('', '', redirect);
-        $.get(redirect, function( data ) {
+		var mail =  $('.logmod__tab.lgm-2').find('#user-email')[0].value;
+		var pass =  $('.logmod__tab.lgm-2').find('#user-pw')[0].value;
+    	$.get(redirect, {"name": pass, "mail": mail}, function( data ) {
             $('.logmod').html(data);
         });
     },

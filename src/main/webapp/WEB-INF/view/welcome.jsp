@@ -4,5 +4,7 @@
 </head>
 <body>
 WELCOME!
+${name}
+${mail}
 </body>
 </html>
