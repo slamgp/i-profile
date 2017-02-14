@@ -10,7 +10,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
-@ComponentScan("com.epsoft.webapps.iprofile")
+@ComponentScan("com.epsoft.webapps.iprofile.controller")
 @EnableWebMvc
 public class Config extends WebMvcConfigurerAdapter{
 

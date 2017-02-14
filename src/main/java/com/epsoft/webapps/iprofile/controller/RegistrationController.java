@@ -1,19 +1,16 @@
 package com.epsoft.webapps.iprofile.controller;
 
 import org.json.simple.JSONObject;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/registration")
+@RequestMapping("/userregistration")
 public class RegistrationController {
-
-    @RequestMapping(method = RequestMethod.GET)
-    public JSONObject registration() {
+    @RequestMapping(method = RequestMethod.POST)
+    public JSONObject registration(@RequestBody JSONObject jsonObject) {
+        System.out.println(jsonObject.get("login"));
         JSONObject resultJson = new JSONObject();
-        resultJson.put("name", "put your name");
-        resultJson.put("email", "put your email");
+        resultJson.put("succes", true);
         return resultJson;
     }
 }
