@@ -9,6 +9,7 @@ function divContentRequestPOST(login, email, password) {
         success: function (data, textStatus) {
             if(data.succes) {
                 $("#mainContext").empty();
+                $("#mainContext").html("<p> " + data.login + ", " + data.email + ", " + data.password);
             }
         },
         error: function (e) {
