@@ -1,3 +1,12 @@
+function createRegistartionHtml() {
+    var html = "";
+    html += '<input id="login"    type="text" value="">';
+    html += '<input id="email"    type="text" value="">';
+    html += '<input id="password" type="password"  value = ""/>';
+    html += '<button id = "btnRegistration">sent</button>'
+    return html;
+}
+
 function divContentRequestPOST(login, email, password) {
     $.ajax({
         url: 'userregistration',
@@ -9,22 +18,16 @@ function divContentRequestPOST(login, email, password) {
         success: function (data, textStatus) {
             if(data.succes) {
                 $("#mainContext").empty();
-                $("#mainContext").html("<p> " + data.login + ", " + data.email + ", " + data.password);
+                $("#mainContext").html(createRegistartionHtml() + "<p> count users = " + data.count);
+            } else {
+                $("#mainContext").empty();
+                $("#mainContext").html(createRegistartionHtml() + "<p> this user was created leter");
             }
         },
         error: function (e) {
             console.log("ERROR: ", e);
         }
     });
-}
-
-function createRegistartionHtml() {
-    var html = "";
-    html += '<input id="login"    type="text" value="">';
-    html += '<input id="email"    type="text" value="">';
-    html += '<input id="password" type="password"  value = ""/>';
-    html += '<button id = "btnRegistration">sent</button>'
-    return html;
 }
 
 function createRegistrationForm() {

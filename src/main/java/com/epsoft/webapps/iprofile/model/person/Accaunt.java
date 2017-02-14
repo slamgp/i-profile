@@ -9,8 +9,7 @@ import com.epsoft.webapps.iprofile.model.person.profiles.Profile;
 
 @Repository
 public class Accaunt {
-    private String email;
-    private String password;
+    private User user;
     private Profile profile;
     private AppLanguage appLanguage;
     private Permition permition;
@@ -18,25 +17,17 @@ public class Accaunt {
     public Accaunt() {
     }
 
-    public Accaunt(String email, String password) {
-        this.email = email;
-        this.password = password;
+    public Accaunt(User user) {
+        this.user = user;
     }
 
-    public String getEmail() {
-        return email;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public User getUser() {
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+        return user;
     }
 
     public Profile getProfile() {
