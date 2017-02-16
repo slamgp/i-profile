@@ -1,8 +1,8 @@
 package com.epsoft.webapps.iprofile.config;
 
 import com.epsoft.webapps.iprofile.model.person.User;
+import com.epsoft.webapps.iprofile.model.repository.UserReposytory;
 import org.apache.log4j.Logger;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Configuration
@@ -47,6 +49,11 @@ public class Config extends WebMvcConfigurerAdapter {
         random.nextBytes(bytes);
 
         return new BCryptPasswordEncoder(4, random);
+    }
+
+    @Bean
+    public List<User> users() {
+        return new ArrayList<User>();
     }
 
 }

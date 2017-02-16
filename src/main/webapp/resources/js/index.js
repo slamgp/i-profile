@@ -23,6 +23,9 @@ function divContentRequestPOST(login, email, password) {
                 $("#mainContext").empty();
                 $("#mainContext").html(createRegistartionHtml() + "<p> this user was created leter");
             }
+            $("#btnRegistration").bind('click', function () {
+                divContentRequestPOST($('#login').val(), $('#email').val(), $('#password').val())
+            });
         },
         error: function (e) {
             console.log("ERROR: ", e);
