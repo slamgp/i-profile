@@ -3,8 +3,15 @@ function createRegistartionHtml() {
     html += '<input id="login"    type="text" value="">';
     html += '<input id="email"    type="text" value="">';
     html += '<input id="password" type="password"  value = ""/>';
-    html += '<button id = "btnRegistration">sent</button>'
+    html += '<button id = "btnSentRegistartion" >sent</button>'
     return html;
+}
+
+function addRegistrationAction() {
+    $("#btnSentRegistartion").bind('click', function () {
+        divContentRequestPOST($('#login').val(), $('#email').val(), $('#password').val())
+    });
+
 }
 
 function divContentRequestPOST(login, email, password) {
@@ -23,9 +30,7 @@ function divContentRequestPOST(login, email, password) {
                 $("#mainContext").empty();
                 $("#mainContext").html(createRegistartionHtml() + "<p> this user was created leter");
             }
-            $("#btnRegistration").bind('click', function () {
-                divContentRequestPOST($('#login').val(), $('#email').val(), $('#password').val())
-            });
+             addRegistrationAction();
         },
         error: function (e) {
             console.log("ERROR: ", e);
@@ -39,11 +44,9 @@ function createRegistrationForm() {
 
 }
 
-$("#btnSignIn").bind('click', function () {
+$("#btnRegistartion").bind('click', function () {
     createRegistrationForm()
-    $("#btnRegistration").bind('click', function () {
-        divContentRequestPOST($('#login').val(), $('#email').val(), $('#password').val())
-    });
+    addRegistrationAction();
 });
 
 $(document).ready(function () {

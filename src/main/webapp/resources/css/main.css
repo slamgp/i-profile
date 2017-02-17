@@ -3,6 +3,25 @@ body {
     font-size: 100%;
 }
 
+.layout {
+    width: 100vh;
+    margin: auto;
+}
+
+.maincontent, .autointification { position: absolute; }
+div.service {
+
+    width: 20vh;
+    float: right;
+    margin: 0vh 0vh 0vh 0vh;
+}
+div.maincontent {
+    background: #CCCCCC;
+    margin: 0vh 0vh 0vh -10vh;
+    height: 100vh;
+    width: 90vh;
+}
+
 p.mainheader {
     font-family: "Times New Roman", Times, serif;
     font-style: normal;
@@ -13,22 +32,26 @@ p.mainheader {
     margin: 0% 10% 0% 10%;
 }
 
-div.maincontent {
-    position: relative;
-    overflow: scroll;
-    width: 70%;
-    height: 100%;
-    background-color: #9C27B0;
-    margin: auto;
+
+div.customheader{
+    height: 10vh;
+    width: 40vw;
+    background: #CCFFFF;
 }
 
-div.autointification {
-    width: 30%;
-    margin: 0% 0% 10% 80%;
+button.signButton{
+    background:url(../img/signIn.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:64px;
+    height:64px;
 }
 
-.center {
-    margin: auto;
-    width: 60%;
-    padding: 10px;
+button.registrationButton{
+    background:url(../img/registration.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:64px;
+    height:64px;
 }
+
