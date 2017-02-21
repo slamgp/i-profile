@@ -14,6 +14,12 @@ import java.security.SecureRandom;
  */
 public class Test {
     public static  void main (String [] args) {
+        SecureRandom random = new SecureRandom();
+        byte bytes[] = new byte[16];
+        random.nextBytes(bytes);
 
+        PasswordEncoder enc = new BCryptPasswordEncoder(4, random);
+        String encodestr = enc.encode("1111");
+        System.out.println(enc.matches( "1111", encodestr));
     }
 }

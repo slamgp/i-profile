@@ -6,21 +6,26 @@ body {
 .layout {
     width: 100vh;
     margin: auto;
+    background: url(../img/mainBg.jpg) no-repeat;
+    margin: auto;
+    height: 900px;
+    width: 562px;
 }
 
-.maincontent, .autointification { position: absolute; }
 div.service {
-
-    width: 20vh;
-    float: right;
-    margin: 0vh 0vh 0vh 0vh;
+    position: absolute;
+    margin: 0px 0px 0px 480px;
+    height: 36px;
+    width: 80px;
 }
 div.maincontent {
-    background: #CCCCCC;
-    margin: 0vh 0vh 0vh -10vh;
-    height: 100vh;
-    width: 90vh;
+    position: absolute;
+    top: 60px;
+    margin: auto;
+    height: 800px;
+    width: 562px;
 }
+.maincontent, .autointification { position: absolute; }
 
 p.mainheader {
     font-family: "Times New Roman", Times, serif;
@@ -39,19 +44,54 @@ div.customheader{
     background: #CCFFFF;
 }
 
+table.registrationTable {
+    margin:auto;
+    background-color: rgba(250,250,250,0.5);
+}
+
+td.buttonTd {
+    text-align: center;
+}
+
 button.signButton{
     background:url(../img/signIn.png) no-repeat;
     cursor:pointer;
     border:none;
-    width:64px;
-    height:64px;
+    width:32px;
+    height:32px;
+    border-radius: 50%;
+    position: absolute;
+    top:  4px;
+    left: 40px;
+}
+
+button.signOutButton {
+    background:url(../img/signOut.png) no-repeat;
+    cursor:pointer;
+    border:none;
+    width:32px;
+    height:32px;
+    border-radius: 50%;
+    position: absolute;
+    top:  4px;
+    left: 40px;
 }
 
 button.registrationButton{
     background:url(../img/registration.png) no-repeat;
     cursor:pointer;
     border:none;
-    width:64px;
-    height:64px;
+    width:32px;
+    height:32px;
+    border-radius: 50%;
+    position: absolute;
+    top:  4px;
+    left: 0px;
+}
+
+button.sentButton{
+    cursor:pointer;
+    width: 100px;
+    font-weight: bold;
 }
 

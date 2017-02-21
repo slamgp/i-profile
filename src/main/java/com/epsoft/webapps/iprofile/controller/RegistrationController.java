@@ -1,15 +1,18 @@
 package com.epsoft.webapps.iprofile.controller;
 
 import com.epsoft.webapps.iprofile.model.person.User;
+import com.epsoft.webapps.iprofile.service.UserManager;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -17,30 +20,38 @@ import java.util.List;
 @RequestMapping("/userregistration")
 public class RegistrationController {
     @Autowired
-    @Qualifier("users")
-    List<User> users;
+    UserManager userManager;
     @Autowired
     @Qualifier("passwordEncoder")
     PasswordEncoder encoder;
+    @Autowired
+    private HttpSession httpSession;
 
 
     @RequestMapping(method = RequestMethod.POST)
     public JSONObject registration(@RequestBody JSONObject jsonObject) {
-        if (!findByEmail(users, (String) jsonObject.get("email"))) {
-            users.add(new User((String) jsonObject.get("login"), (String) jsonObject.get("email"), (String) jsonObject.get("password")));
-        }
         JSONObject resultJson = new JSONObject();
-        Object succes = resultJson.put("succes", true);
-        resultJson.put("count", users.size());
-        return resultJson;
-    }
-
-    private boolean findByEmail(List<User> users, String email) {
-        for (User user : users) {
-            if(user.getEmail().equals(email)){
-                return true;
-            }
+        User  user = new  User((String) jsonObject.get("login"), (String) jsonObject.get("email"), encoder.encode((String)jsonObject.get("password")));
+        boolean newUser = false;
+        if (userManager.findByEmail(user.getEmail())) {
+            newUser = false;
+            resultJson.put("email", user.getEmail());
+        } else {
+            newUser = true;
         }
-        return false;
+
+        if (userManager.findByLogin(user.getLogin())) {
+            newUser = false;
+            resultJson.put("login", user.getLogin());
+        } else {
+            newUser = true;
+        }
+        resultJson.put("succes", newUser);
+
+        if(newUser) {
+            userManager.addUser(user);
+        }
+
+        return resultJson;
     }
 }

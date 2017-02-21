@@ -2,6 +2,7 @@ package com.epsoft.webapps.iprofile.config;
 
 import com.epsoft.webapps.iprofile.model.person.User;
 import com.epsoft.webapps.iprofile.model.repository.UserReposytory;
+import com.epsoft.webapps.iprofile.service.UserManager;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -54,6 +55,11 @@ public class Config extends WebMvcConfigurerAdapter {
     @Bean
     public List<User> users() {
         return new ArrayList<User>();
+    }
+
+    @Bean
+    public UserManager userManager() {
+        return new UserManager();
     }
 
 }
