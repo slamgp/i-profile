@@ -7,8 +7,9 @@
 
     <body>
         <div class="layout">
+            <div class = maincontent id = "popUpContext">
+            </div>
             <div class = maincontent id = "mainContext">
-
             </div>
             <div class = "service" id = "serviceContext">
                 <button class="registrationButton" id = "btnRegistartion"  title="Registaration"> </button>

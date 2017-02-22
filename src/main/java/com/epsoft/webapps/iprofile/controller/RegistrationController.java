@@ -24,29 +24,33 @@ public class RegistrationController {
     @Autowired
     @Qualifier("passwordEncoder")
     PasswordEncoder encoder;
-    @Autowired
-    private HttpSession httpSession;
-
 
     @RequestMapping(method = RequestMethod.POST)
     public JSONObject registration(@RequestBody JSONObject jsonObject) {
         JSONObject resultJson = new JSONObject();
-        User  user = new  User((String) jsonObject.get("login"), (String) jsonObject.get("email"), encoder.encode((String)jsonObject.get("password")));
-        boolean newUser = false;
+        User  user = new  User((String) jsonObject.get("login"), (String) jsonObject.get("email"),
+                encoder.encode((String)jsonObject.get("password")));
+        boolean newUser;
+        String failDescription ="";
         if (userManager.findByEmail(user.getEmail())) {
             newUser = false;
-            resultJson.put("email", user.getEmail());
+            failDescription += user.getEmail();
         } else {
             newUser = true;
         }
 
         if (userManager.findByLogin(user.getLogin())) {
-            newUser = false;
-            resultJson.put("login", user.getLogin());
+            newUser = newUser & false;
+            failDescription += (", " + user.getLogin());
         } else {
-            newUser = true;
+            newUser = newUser & true;
         }
         resultJson.put("succes", newUser);
+        if (newUser) {
+            resultJson.put("login", user.getLogin());
+        } else {
+            resultJson.put("fail", failDescription);
+        }
 
         if(newUser) {
             userManager.addUser(user);

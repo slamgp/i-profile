@@ -1,10 +1,10 @@
 package com.epsoft.webapps.iprofile.model.repository;
 
 import com.epsoft.webapps.iprofile.model.person.User;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface UserReposytory extends CrudRepository<User, Long> {
-  //  User findByEmail(String email);
+
+public interface UserReposytory extends JpaRepository<User, Long> {
+     User findByEmail(String email);
 }

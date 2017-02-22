@@ -2,13 +2,15 @@ package com.epsoft.webapps.iprofile.model.person;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class User {
     private String login;
     private String email;
     private String password;
 
-    public  User() {
+    public User() {
 
     }
 

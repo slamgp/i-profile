@@ -1,14 +1,10 @@
 package com.epsoft.webapps.iprofile.config;
 
 import com.epsoft.webapps.iprofile.model.person.User;
-import com.epsoft.webapps.iprofile.model.repository.UserReposytory;
 import com.epsoft.webapps.iprofile.service.UserManager;
-import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -19,12 +15,10 @@ import org.springframework.web.servlet.view.JstlView;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Configuration
-@ComponentScan("com.epsoft.webapps.iprofile")
+@ComponentScan("com.epsoft.webapps.iprofile.controller")
 @EnableWebMvc
 public class Config extends WebMvcConfigurerAdapter {
 
@@ -61,5 +55,4 @@ public class Config extends WebMvcConfigurerAdapter {
     public UserManager userManager() {
         return new UserManager();
     }
-
 }

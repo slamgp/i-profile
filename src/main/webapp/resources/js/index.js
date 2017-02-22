@@ -1,23 +1,23 @@
 function createRegistartionHtml() {
     var html = "";
     html = '<table class="registrationTable"> <tr>'
-        +'<td>login:</td>   <td><input id="login"    type="text" value=""></td></tr>'
-        +'<tr><td>email:</td>   <td><input id="email"    type="text" value=""</td></tr>'
-        +'<tr><td>password:</td> <td><input id="password" type="password"  value = ""</td></tr>'
-        +'<tr><td class = "buttonTd" colspan="2"><button class = "sentButton" id = "btnSentRegistartion" >sent</button></td></tr></table>';
+        + '<td>login:</td>   <td><input id="login"    type="text" value=""></td></tr>'
+        + '<tr><td>email:</td>   <td><input id="email"    type="text" value=""</td></tr>'
+        + '<tr><td>password:</td> <td><input id="password" type="password"  value = ""</td></tr>'
+        + '<tr><td class = "buttonTd" colspan="2"><button class = "sentButton" id = "btnSentRegistartion" >sent</button></td></tr></table>';
     return html;
 }
 
 function createAutentificationHtml() {
     var html = "";
     html = '<table class="registrationTable"> <tr>'
-        +'<tr><td>email:</td>   <td><input id="email"    type="text" value=""</td></tr>'
-        +'<tr><td>password:</td> <td><input id="password" type="password"  value = ""</td></tr>'
-        +'<tr><td class = "buttonTd" colspan="2"><button class = "sentButton" id = "btnSentAutontification" >sent</button></td></tr></table>';
+        + '<tr><td>email:</td>   <td><input id="email"    type="text" value=""</td></tr>'
+        + '<tr><td>password:</td> <td><input id="password" type="password"  value = ""</td></tr>'
+        + '<tr><td class = "buttonTd" colspan="2"><button class = "sentButton" id = "btnSentAutontification" >sent</button></td></tr></table>';
     return html;
 }
 
-function userWasRegistrated(data){
+function userRegistratedSucces(data) {
     $("#mainContext").html('<p> hello ' + data.login);
     $("#serviceContext").empty();
     $("#serviceContext").html('<button class="signOutButton" id = "btnSignOut"  title="Sign out"> </button>');
@@ -37,6 +37,61 @@ function addAutentificationAction() {
 
 }
 
+function addRegistartionClickEvent() {
+    $("#btnRegistartion").bind('click', function () {
+        createRegistrationForm()
+        addRegistrationAction();
+    });
+}
+
+function addSignInClickEvent() {
+    $("#btnSign").bind('click', function () {
+        createAutentificationForm()
+        addAutentificationAction();
+    });
+}
+
+function showPopUpRegistration(message) {
+    $("#popUpContext").empty();
+    $("#popUpContext").html('<div class="popupRegistartion">'+
+                            '<p class="popupText">' +
+                            message +
+                            '</div>)');
+    $("#popUpContext").css({ opacity: 0});
+    $("#popUpContext").fadeTo(1000, 1).delay(1000).fadeTo(1000, 0);
+}
+
+function showPopUpAuthentification(message) {
+    $("#popUpContext").empty();
+    $("#popUpContext").html('<div class="popupAuthentification">'+
+        '<p class="popupText">' +
+        message +
+        '</div>)');
+    $("#popUpContext").css({ opacity: 0});
+    $("#popUpContext").fadeTo(1000, 1).delay(1000).fadeTo(1000, 0);
+}
+
+function showServiceButton(registration, signIn, signOut) {
+    serviseHtml = "";
+    if(registration) {
+        serviseHtml += '<button class="registrationButton" id = "btnRegistartion"  title="Registaration"> </button>';
+    }
+    if(signIn) {
+        serviseHtml += '<button class="signButton" id = "btnSign"  title="Sign In"> </button>';
+    }
+    if(signOut) {
+        serviseHtml += '<button class="signOutButton" id = "btnSignOut"  title="Sign Out"> </button>';
+    }
+    $('#serviceContext').empty();
+    $('#serviceContext').html(serviseHtml);
+    if(registration) {
+        addRegistartionClickEvent();
+    }
+    if(signIn) {
+        addSignInClickEvent();
+    }
+}
+
 function autentificationRequestPOST(email, password) {
     $.ajax({
         url: 'authentication',
@@ -46,19 +101,16 @@ function autentificationRequestPOST(email, password) {
         contentType: 'application/json',
         mimeType: 'application/json',
         success: function (data, textStatus) {
-            if(data.succes) {
-                $("#mainContext").empty();
-                $("#btnSign").hide();
-                userWasRegistrated();
+            if (data.succes) {
+                userRegistratedSucces(data);
+                showServiceButton(false, false, true);
             } else {
-                $("#mainContext").empty();
                 if (data.noUser != null) {
-                    $("#mainContext").html("<p> This is user doesn't find in system");
+                    showPopUpAuthentification("This is user doesn't find in system");
                 } else {
-                    $("#mainContext").html("<p> This password isn't correct");
+                    showPopUpAuthentification("This password isn't correct");
                 }
             }
-            addRegistrationAction();
         },
         error: function (e) {
             console.log("ERROR: ", e);
@@ -76,24 +128,12 @@ function registrationRequestPOST(login, email, password) {
         contentType: 'application/json',
         mimeType: 'application/json',
         success: function (data, textStatus) {
-            if(data.succes) {
+            if (data.succes) {
                 $("#mainContext").empty();
-                $("#btnRegistartion").hide();
+                showServiceButton(false, true, false);
             } else {
-                $("#mainContext").empty();
-                if (data.email != null) {
-                    msgStr = "<p> user with mail: " + data.email + " was created letter!";
-                    if(data.login != null) {
-                        msgStr += "<p> user with login: " + data.login + " was created letter!";
-                    }
-                    $("#mainContext").html(createRegistartionHtml() + msgStr);
-                } else {
-                    if(data.login != null) {
-                        $("#mainContext").html(createRegistartionHtml() + "<p> user with login: " + data.login + " was created letter!");
-                    }
-                }
+                showPopUpRegistration("user with parameters: " + data.fail + " was created1");
             }
-             addRegistrationAction();
         },
         error: function (e) {
             console.log("ERROR: ", e);
@@ -113,16 +153,6 @@ function createRegistrationForm() {
 
 }
 
-$("#btnRegistartion").bind('click', function () {
-    createRegistrationForm()
-    addRegistrationAction();
-});
-
-$("#btnSign").bind('click', function () {
-    createAutentificationForm()
-    addAutentificationAction();
-});
-
 function sentsCurrentUserRequestGet() {
     $.ajax({
         url: 'userRequest',
@@ -141,4 +171,6 @@ function sentsCurrentUserRequestGet() {
 
 $(document).ready(function () {
     sentsCurrentUserRequestGet();
+    addSignInClickEvent();
+    addRegistartionClickEvent();
 });

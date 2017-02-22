@@ -5,11 +5,15 @@ import com.epsoft.webapps.iprofile.service.UserManager;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/authentication")
@@ -19,6 +23,8 @@ public class AuthenticationController {
     @Autowired
     @Qualifier("passwordEncoder")
     PasswordEncoder encoder;
+    @Autowired
+    private HttpSession httpSession;
 
     @RequestMapping(method = RequestMethod.POST)
     public JSONObject authentication(@RequestBody JSONObject jsonObject) {
@@ -27,11 +33,10 @@ public class AuthenticationController {
         String password = (String) jsonObject.get("password");
         User user = userManager.getUserByEmail(email);
         if (user != null) {
-            System.out.println("user.getPassword(): " + user.getPassword());
-            System.out.println("password: " + password);
-            System.out.println("chec k: " + encoder.matches(user.getPassword(), password));
-            if (encoder.matches(user.getPassword(), password)) {
+            httpSession.setAttribute("user", user);
+            if (encoder.matches(password, user.getPassword())) {
                 resultJson.put("succes", true);
+                resultJson.put("login", user.getLogin());
             } else {
                 resultJson.put("succes", false);
             }
