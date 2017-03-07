@@ -1,5 +1,6 @@
 package com.epsoft.webapps.iprofile.model.person;
 
+import com.epsoft.webapps.iprofile.model.security.User;
 import org.springframework.stereotype.Repository;
 
 import com.epsoft.webapps.iprofile.model.constant.AppLanguage;

@@ -58,7 +58,7 @@ function showPopUpRegistration(message) {
                             message +
                             '</div>)');
     $("#popUpContext").css({ opacity: 0});
-    $("#popUpContext").fadeTo(1000, 1).delay(1000).fadeTo(1000, 0);
+    $("#popUpContext").fadeTo(500, 1).delay(2000).fadeTo(500, 0);
 }
 
 function showPopUpAuthentification(message) {
@@ -68,7 +68,7 @@ function showPopUpAuthentification(message) {
         message +
         '</div>)');
     $("#popUpContext").css({ opacity: 0});
-    $("#popUpContext").fadeTo(1000, 1).delay(1000).fadeTo(1000, 0);
+    $("#popUpContext").fadeTo(500, 1).delay(2000).fadeTo(500, 0);
 }
 
 function showServiceButton(registration, signIn, signOut) {
@@ -132,7 +132,7 @@ function registrationRequestPOST(login, email, password) {
                 $("#mainContext").empty();
                 showServiceButton(false, true, false);
             } else {
-                showPopUpRegistration("user with parameters: " + data.fail + " was created1");
+                showPopUpRegistration("User with parameters: " + data.fail + " was created1");
             }
         },
         error: function (e) {

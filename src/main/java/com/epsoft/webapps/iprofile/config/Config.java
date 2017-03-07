@@ -1,10 +1,11 @@
 package com.epsoft.webapps.iprofile.config;
 
-import com.epsoft.webapps.iprofile.model.person.User;
-import com.epsoft.webapps.iprofile.service.UserManager;
+import com.epsoft.webapps.iprofile.model.security.User;
+import com.epsoft.webapps.iprofile.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -20,6 +21,7 @@ import java.util.List;
 @Configuration
 @ComponentScan("com.epsoft.webapps.iprofile.controller")
 @EnableWebMvc
+@Import({ SecurityConfig.class })
 public class Config extends WebMvcConfigurerAdapter {
 
     @Override
@@ -52,7 +54,7 @@ public class Config extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public UserManager userManager() {
-        return new UserManager();
+    public UserService userManager() {
+        return new UserService();
     }
 }

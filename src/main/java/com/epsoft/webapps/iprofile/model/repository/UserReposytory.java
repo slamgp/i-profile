@@ -1,6 +1,6 @@
 package com.epsoft.webapps.iprofile.model.repository;
 
-import com.epsoft.webapps.iprofile.model.person.User;
+import com.epsoft.webapps.iprofile.model.security.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
