@@ -161,7 +161,7 @@ function sentsCurrentUserRequestGet() {
         contentType: 'application/json',
         mimeType: 'application/json',
         success: function (data, textStatus) {
-            addRegistrationAction();
+           // addRegistrationAction();
         },
         error: function (e) {
             console.log("ERROR: ", e);
@@ -169,8 +169,16 @@ function sentsCurrentUserRequestGet() {
     });
 }
 
+
 $(document).ready(function () {
     sentsCurrentUserRequestGet();
     addSignInClickEvent();
     addRegistartionClickEvent();
+    $(function () {
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ajaxSend(function(e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
+    });
 });

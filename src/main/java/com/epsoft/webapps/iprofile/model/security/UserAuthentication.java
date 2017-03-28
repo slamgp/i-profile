@@ -1,10 +1,10 @@
 package com.epsoft.webapps.iprofile.model.security;
 
-import com.sun.istack.internal.NotNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.security.auth.Subject;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 public class UserAuthentication implements Authentication {

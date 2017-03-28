@@ -2,9 +2,11 @@
 <html>
     <head>
         <link rel="stylesheet" href="resources/css/main.css">
-
+        <meta name="_csrf" content="${_csrf.token}"/>
+        <!-- default header name is X-CSRF-TOKEN -->
+        <meta name="_csrf_header" content="${_csrf.headerName}"/>
+        <!-- ... -->
     </head>
-
     <body>
         <div class="layout">
             <div class = maincontent id = "popUpContext">

@@ -29,40 +29,32 @@ public class RegistrationController {
 
     @RequestMapping(method = RequestMethod.POST)
     public JSONObject registration(@RequestBody JSONObject jsonObject) {
-        System.out.println("1");
         JSONObject resultJson = new JSONObject();
-        System.out.println("2");
         User  user = new  User((String) jsonObject.get("login"), (String) jsonObject.get("email"),
                 encoder.encode((String)jsonObject.get("password")), createAuthorities());
-        System.out.println("3");
         boolean newUser;
         String failDescription ="";
-        System.out.println("4");
         if (userService.findByEmail(user.getEmail())) {
             newUser = false;
             failDescription += user.getEmail();
         } else {
             newUser = true;
         }
-        System.out.println("5");
         if (userService.findByLogin(user.getLogin())) {
             newUser = newUser & false;
             failDescription += (", " + user.getLogin());
         } else {
             newUser = newUser & true;
         }
-        System.out.println("6");
         resultJson.put("succes", newUser);
         if (newUser) {
             resultJson.put("login", user.getLogin());
         } else {
             resultJson.put("fail", failDescription);
         }
-        System.out.println("7");
         if(newUser) {
             userService.addUser(user);
         }
-        System.out.println("8");
         return resultJson;
     }
 

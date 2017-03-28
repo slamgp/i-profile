@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/authentication")
@@ -23,8 +22,7 @@ public class AuthenticationController {
     @Autowired
     @Qualifier("passwordEncoder")
     PasswordEncoder encoder;
-    @Autowired
-    private HttpSession httpSession;
+
 
     @RequestMapping(method = RequestMethod.POST)
     public JSONObject authentication(@RequestBody JSONObject jsonObject) {
@@ -32,7 +30,6 @@ public class AuthenticationController {
         String email    = (String) jsonObject.get("email");
         String password = (String) jsonObject.get("password");
         User user = userServise.loadUserByEmail(email);
-
         if (user != null) {
             if (encoder.matches(password, user.getPassword())) {
                 resultJson.put("succes", true);
