@@ -18,6 +18,19 @@ div.service {
     height: 36px;
     width: 80px;
 }
+
+div.userDetail {
+    position: absolute;
+    margin: 10px 80px 10px 0px;
+    height: 36px;
+    width: 480px;
+}
+label.userNameLabel {
+    text-align: right;
+    color: gold;
+    float:right;
+}
+
 div.maincontent {
     position: absolute;
     top: 60px;

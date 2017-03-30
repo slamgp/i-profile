@@ -31,14 +31,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
            RequestHeaderAuthenticationFilter requestHeaderAuthenticationFilter = fromContext(http,
               RequestHeaderAuthenticationFilter.class);
         http
-
+                .addFilter(requestHeaderAuthenticationFilter)
                 .authorizeRequests()
                 //   .antMatchers("/welcome").hasRole("ANONYMOUS")
                   // .antMatchers(HttpMethod.GET, "/authentication").hasRole("ANONYMOUS")
                 //  .antMatchers(HttpMethod.POST, "/authentication").hasRole("ANONYMOUS")
                 .anyRequest().permitAll()
                 .and();
-                //.csrf().disable()
+              //  .csrf().disable();
 
              //   .formLogin()
               //  .loginPage("/")

@@ -18,8 +18,9 @@ function createAutentificationHtml() {
 }
 
 function userRegistratedSucces(data) {
-    $("#mainContext").html('<p> hello ' + data.login);
+    $("#mainContext").empty();
     $("#serviceContext").empty();
+    $("#userNameLable").text(data.login);
     $("#serviceContext").html('<button class="signOutButton" id = "btnSignOut"  title="Sign out"> </button>');
 }
 
@@ -161,15 +162,15 @@ function sentsCurrentUserRequestGet() {
         contentType: 'application/json',
         mimeType: 'application/json',
         success: function (data, textStatus) {
-           // addRegistrationAction();
+            if(data.succes) {
+                userRegistratedSucces(data);
+            }
         },
         error: function (e) {
             console.log("ERROR: ", e);
         }
     });
 }
-
-
 $(document).ready(function () {
     sentsCurrentUserRequestGet();
     addSignInClickEvent();

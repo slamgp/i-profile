@@ -17,6 +17,9 @@
                 <button class="registrationButton" id = "btnRegistartion"  title="Registaration"> </button>
                 <button class="signButton" id = "btnSign"  title="Sign In"> </button>
             </div>
+            <div class = "userDetail" id = "userDetailContext">
+                <label class = "userNameLabel" id = "userNameLable"></label>
+            </div>
         </div>
         <script src="resources/js/jquery-2.2.4.js"></script>
         <script src="resources/js/index.js"></script>
