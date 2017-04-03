@@ -17,11 +17,19 @@ function createAutentificationHtml() {
     return html;
 }
 
-function userRegistratedSucces(data) {
+function userAuthenticationSucces(data) {
     $("#mainContext").empty();
     $("#serviceContext").empty();
     $("#userNameLable").text(data.login);
     $("#serviceContext").html('<button class="signOutButton" id = "btnSignOut"  title="Sign out"> </button>');
+    addLogOutAction();
+}
+
+function userAuthenticationFail(data) {
+    $("#mainContext").empty();
+    $("#serviceContext").empty();
+    $("#userNameLable").text("");
+    showServiceButton(true, true, false);
 }
 
 function addRegistrationAction() {
@@ -35,8 +43,14 @@ function addAutentificationAction() {
     $("#btnSentAutontification").bind('click', function () {
         autentificationRequestPOST($('#email').val(), $('#password').val())
     });
-
 }
+
+function addLogOutAction() {
+    $("#btnSignOut").bind('click', function () {
+        logOutRequestPOST();
+    });
+}
+
 
 function addRegistartionClickEvent() {
     $("#btnRegistartion").bind('click', function () {
@@ -52,45 +66,62 @@ function addSignInClickEvent() {
     });
 }
 
+
 function showPopUpRegistration(message) {
     $("#popUpContext").empty();
-    $("#popUpContext").html('<div class="popupRegistartion">'+
-                            '<p class="popupText">' +
-                            message +
-                            '</div>)');
-    $("#popUpContext").css({ opacity: 0});
+    $("#popUpContext").html('<div class="popupRegistartion">' +
+        '<p class="popupText">' +
+        message +
+        '</div>)');
+    $("#popUpContext").css({opacity: 0});
     $("#popUpContext").fadeTo(500, 1).delay(2000).fadeTo(500, 0);
 }
 
 function showPopUpAuthentification(message) {
     $("#popUpContext").empty();
-    $("#popUpContext").html('<div class="popupAuthentification">'+
+    $("#popUpContext").html('<div class="popupAuthentification">' +
         '<p class="popupText">' +
         message +
         '</div>)');
-    $("#popUpContext").css({ opacity: 0});
+    $("#popUpContext").css({opacity: 0});
     $("#popUpContext").fadeTo(500, 1).delay(2000).fadeTo(500, 0);
 }
 
 function showServiceButton(registration, signIn, signOut) {
     serviseHtml = "";
-    if(registration) {
+    if (registration) {
         serviseHtml += '<button class="registrationButton" id = "btnRegistartion"  title="Registaration"> </button>';
     }
-    if(signIn) {
+    if (signIn) {
         serviseHtml += '<button class="signButton" id = "btnSign"  title="Sign In"> </button>';
     }
-    if(signOut) {
+    if (signOut) {
         serviseHtml += '<button class="signOutButton" id = "btnSignOut"  title="Sign Out"> </button>';
     }
     $('#serviceContext').empty();
     $('#serviceContext').html(serviseHtml);
-    if(registration) {
+    if (registration) {
         addRegistartionClickEvent();
     }
-    if(signIn) {
+    if (signIn) {
         addSignInClickEvent();
     }
+    if (signOut) {
+        addLogOutAction();
+    }
+}
+
+function logOutRequestPOST() {
+    $.ajax({
+        url: 'logout',
+        type: 'GET',
+        success: function (data, textStatus) {
+            sentsCurrentUserRequestPost();
+        },
+        error: function (e) {
+            console.log("ERROR: ", e);
+        }
+    });
 }
 
 function autentificationRequestPOST(email, password) {
@@ -103,7 +134,7 @@ function autentificationRequestPOST(email, password) {
         mimeType: 'application/json',
         success: function (data, textStatus) {
             if (data.succes) {
-                userRegistratedSucces(data);
+                userAuthenticationSucces(data);
                 showServiceButton(false, false, true);
             } else {
                 if (data.noUser != null) {
@@ -154,32 +185,34 @@ function createRegistrationForm() {
 
 }
 
-function sentsCurrentUserRequestGet() {
+function sentsCurrentUserRequestPost() {
     $.ajax({
         url: 'userRequest',
-        type: 'GET',
+        type: 'POST',
         dataType: 'json',
         contentType: 'application/json',
         mimeType: 'application/json',
         success: function (data, textStatus) {
-            if(data.succes) {
-                userRegistratedSucces(data);
-            }
+            if (data.succes) {
+                userAuthenticationSucces(data);
+           }// else {
+               // userAuthenticationFail();
+          //  }
         },
         error: function (e) {
             console.log("ERROR: ", e);
         }
     });
 }
+$(function () {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function (e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
+});
 $(document).ready(function () {
-    sentsCurrentUserRequestGet();
+    sentsCurrentUserRequestPost();
     addSignInClickEvent();
     addRegistartionClickEvent();
-    $(function () {
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
-        $(document).ajaxSend(function(e, xhr, options) {
-            xhr.setRequestHeader(header, token);
-        });
-    });
 });

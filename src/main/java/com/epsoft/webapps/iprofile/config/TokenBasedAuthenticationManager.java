@@ -24,7 +24,7 @@ public class TokenBasedAuthenticationManager implements AuthenticationManager {
         String password = authentication.getCredentials() + "";
         System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
-        User user = userServise.loadUserByUsername(username);
+        User user = userServise.loadUserByEmail(username);
         if (user == null) {
             throw new BadCredentialsException("1000");
         }

@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import javax.validation.constraints.NotNull;
@@ -24,7 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService userService;
      public static final String X_AUTH_TOKEN = "X-Auth-Token";
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -38,7 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //  .antMatchers(HttpMethod.POST, "/authentication").hasRole("ANONYMOUS")
                 .anyRequest().permitAll()
                 .and();
-              //  .csrf().disable();
+              //  .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+        //  .csrf().disable();
 
              //   .formLogin()
               //  .loginPage("/")

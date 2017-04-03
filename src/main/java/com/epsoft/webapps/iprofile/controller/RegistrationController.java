@@ -2,12 +2,10 @@ package com.epsoft.webapps.iprofile.controller;
 
 import com.epsoft.webapps.iprofile.model.security.Role;
 import com.epsoft.webapps.iprofile.model.security.User;
-import com.epsoft.webapps.iprofile.model.security.UserAuthentication;
 import com.epsoft.webapps.iprofile.service.UserService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,10 +28,10 @@ public class RegistrationController {
     @RequestMapping(method = RequestMethod.POST)
     public JSONObject registration(@RequestBody JSONObject jsonObject) {
         JSONObject resultJson = new JSONObject();
-        User  user = new  User((String) jsonObject.get("login"), (String) jsonObject.get("email"),
-                encoder.encode((String)jsonObject.get("password")), createAuthorities());
+        User user = new User((String) jsonObject.get("login"), (String) jsonObject.get("email"),
+                encoder.encode((String) jsonObject.get("password")), createAuthorities());
         boolean newUser;
-        String failDescription ="";
+        String failDescription = "";
         if (userService.findByEmail(user.getEmail())) {
             newUser = false;
             failDescription += user.getEmail();
@@ -52,7 +50,7 @@ public class RegistrationController {
         } else {
             resultJson.put("fail", failDescription);
         }
-        if(newUser) {
+        if (newUser) {
             userService.addUser(user);
         }
         return resultJson;

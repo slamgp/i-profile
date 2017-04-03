@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -56,5 +58,10 @@ public class Config extends WebMvcConfigurerAdapter {
     @Bean
     public UserService userManager() {
         return new UserService();
+    }
+
+    @Bean
+    public SecurityContext contextHolder() {
+        return  SecurityContextHolder.getContext();
     }
 }
