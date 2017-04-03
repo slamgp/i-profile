@@ -26,7 +26,6 @@ public class UserController {
         } else {
             resultJson.put("succes", true);
             resultJson.put("login", auth.getName());
-            System.out.println("userRequest AUTH = " + auth + ", name = " + auth.getName());
         }
         return resultJson;
     }

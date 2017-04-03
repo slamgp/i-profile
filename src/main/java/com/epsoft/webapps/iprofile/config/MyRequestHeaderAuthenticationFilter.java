@@ -13,13 +13,11 @@ public class MyRequestHeaderAuthenticationFilter extends RequestHeaderAuthentica
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, Authentication authResult) throws IOException, ServletException {
-        System.out.println("Authhhhhhhhhhhhhhhhhhhhhhh");
         super.successfulAuthentication(request, response, authResult);
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        System.out.println("Authhhhhhhhhhhhhhhhhhhhhhh");
         super.unsuccessfulAuthentication(request, response, failed);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }

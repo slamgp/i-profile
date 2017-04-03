@@ -25,24 +25,17 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/logout")
 public class LogOutController {
     @Autowired
-    HttpServletRequest request;
-    @Autowired
-    HttpServletResponse response;
-    @Autowired
     SecurityContext contextHolder;
 
     @RequestMapping(method = RequestMethod.GET)
     public JSONObject logout() {
         Authentication auth = contextHolder.getAuthentication();
-        System.out.println("logouh1 = " + contextHolder.getAuthentication());
         JSONObject resultJson = new JSONObject();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-            resultJson.put("succes", true);
+            contextHolder.setAuthentication(null);
         } else {
             resultJson.put("succes", false);
         }
-        System.out.println("logouh2 = " + contextHolder.getAuthentication());
         return resultJson;
     }
 }

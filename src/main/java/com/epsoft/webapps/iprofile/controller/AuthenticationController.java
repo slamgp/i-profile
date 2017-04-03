@@ -54,9 +54,6 @@ public class AuthenticationController {
             resultJson.put("noUser", "no user");
         }
 
-
-
-        System.out.println("authentication = " + contextHolder.getAuthentication());
         return resultJson;
     }
 }

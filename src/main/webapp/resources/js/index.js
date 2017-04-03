@@ -47,7 +47,7 @@ function addAutentificationAction() {
 
 function addLogOutAction() {
     $("#btnSignOut").bind('click', function () {
-        logOutRequestPOST();
+        logOutRequestGET();
     });
 }
 
@@ -111,7 +111,7 @@ function showServiceButton(registration, signIn, signOut) {
     }
 }
 
-function logOutRequestPOST() {
+function logOutRequestGET() {
     $.ajax({
         url: 'logout',
         type: 'GET',
@@ -195,9 +195,9 @@ function sentsCurrentUserRequestPost() {
         success: function (data, textStatus) {
             if (data.succes) {
                 userAuthenticationSucces(data);
-           }// else {
-               // userAuthenticationFail();
-          //  }
+           } else {
+                userAuthenticationFail();
+           }
         },
         error: function (e) {
             console.log("ERROR: ", e);

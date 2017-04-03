@@ -22,7 +22,6 @@ public class TokenBasedAuthenticationManager implements AuthenticationManager {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getPrincipal() + "";
         String password = authentication.getCredentials() + "";
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
         User user = userServise.loadUserByEmail(username);
         if (user == null) {
