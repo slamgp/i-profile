@@ -1,47 +1,38 @@
-function createRegistartionHtml() {
-    var html = "";
-    html = '<table class="registrationTable"> <tr>'
-        + '<td>login:</td>   <td><input id="login"    type="text" value=""></td></tr>'
-        + '<tr><td>email:</td>   <td><input id="email"    type="text" value=""</td></tr>'
-        + '<tr><td>password:</td> <td><input id="password" type="password"  value = ""</td></tr>'
-        + '<tr><td class = "buttonTd" colspan="2"><button class = "sentButton" id = "btnSentRegistartion" >sent</button></td></tr></table>';
-    return html;
-}
-
-function createAutentificationHtml() {
-    var html = "";
-    html = '<table class="registrationTable"> <tr>'
-        + '<tr><td>email:</td>   <td><input id="email"    type="text" value=""</td></tr>'
-        + '<tr><td>password:</td> <td><input id="password" type="password"  value = ""</td></tr>'
-        + '<tr><td class = "buttonTd" colspan="2"><button class = "sentButton" id = "btnSentAutontification" >sent</button></td></tr></table>';
-    return html;
-}
-
 function userAuthenticationSucces(data) {
-    $("#mainContext").empty();
-    $("#serviceContext").empty();
+    showUserData(data);
+}
+
+function showUserData(data) {
     $("#userNameLable").text(data.login);
-    $("#serviceContext").html('<button class="signOutButton" id = "btnSignOut"  title="Sign out"> </button>');
-    addLogOutAction();
+    showServiceButton(false, false, true);
+    $("#avatarContainer").css("backgroundImage", 'url(' + data.avatar + ')')
+    $("#avatarContainer").css("visibility", "visible");
+    $("#nameContainer").css("visibility", "visible");
+    $("#nameContainer").text(data.allUserName)
+}
+
+
+function hideUserData() {
+    $("#userNameLable").text("");
+    $("#avatarContainer").css("visibility", "hidden");
+    $("#nameContainer").css("visibility", "hidden");
 }
 
 function userAuthenticationFail(data) {
-    $("#mainContext").empty();
-    $("#serviceContext").empty();
     $("#userNameLable").text("");
     showServiceButton(true, true, false);
 }
 
 function addRegistrationAction() {
     $("#btnSentRegistartion").bind('click', function () {
-        registrationRequestPOST($('#login').val(), $('#email').val(), $('#password').val())
+        registrationRequestPOST($('#reg_login').val(), $('#reg_email').val(), $('#reg_password').val())
     });
 
 }
 
 function addAutentificationAction() {
     $("#btnSentAutontification").bind('click', function () {
-        autentificationRequestPOST($('#email').val(), $('#password').val())
+        autentificationRequestPOST($('#outh_email').val(), $('#outh_password').val())
     });
 }
 
@@ -54,69 +45,55 @@ function addLogOutAction() {
 
 function addRegistartionClickEvent() {
     $("#btnRegistartion").bind('click', function () {
-        createRegistrationForm()
-        addRegistrationAction();
+        $("#authenticationTable").css("visibility", "hidden")
+        $("#registrationTable").css("visibility", "visible")
     });
 }
 
 function addSignInClickEvent() {
     $("#btnSign").bind('click', function () {
-        createAutentificationForm()
-        addAutentificationAction();
+        $("#registrationTable").css("visibility", "hidden")
+        $("#authenticationTable").css("visibility", "visible")
     });
 }
 
 
-function showPopUpRegistration(message) {
-    $("#popUpContext").empty();
-    $("#popUpContext").html('<div class="popupRegistartion">' +
-        '<p class="popupText">' +
-        message +
-        '</div>)');
+function showPopUpMessage(message) {
+    $("#popupText").text(message)
     $("#popUpContext").css({opacity: 0});
     $("#popUpContext").fadeTo(500, 1).delay(2000).fadeTo(500, 0);
 }
 
-function showPopUpAuthentification(message) {
-    $("#popUpContext").empty();
-    $("#popUpContext").html('<div class="popupAuthentification">' +
-        '<p class="popupText">' +
-        message +
-        '</div>)');
-    $("#popUpContext").css({opacity: 0});
-    $("#popUpContext").fadeTo(500, 1).delay(2000).fadeTo(500, 0);
-}
 
 function showServiceButton(registration, signIn, signOut) {
-    serviseHtml = "";
     if (registration) {
-        serviseHtml += '<button class="registrationButton" id = "btnRegistartion"  title="Registaration"> </button>';
+        $("#btnRegistartion").css("visibility", "visible")
+    } else {
+        $("#btnRegistartion").css("visibility", "hidden")
     }
     if (signIn) {
-        serviseHtml += '<button class="signButton" id = "btnSign"  title="Sign In"> </button>';
+        $("#btnSign").css("visibility", "visible")
+    } else {
+        $("#btnSign").css("visibility", "hidden")
     }
     if (signOut) {
-        serviseHtml += '<button class="signOutButton" id = "btnSignOut"  title="Sign Out"> </button>';
+        $("#btnSignOut").css("visibility", "visible")
+    } else {
+        $("#btnSignOut").css("visibility", "hidden")
     }
-    $('#serviceContext').empty();
-    $('#serviceContext').html(serviseHtml);
-    if (registration) {
-        addRegistartionClickEvent();
-    }
-    if (signIn) {
-        addSignInClickEvent();
-    }
-    if (signOut) {
-        addLogOutAction();
-    }
+}
+
+function logout() {
+    showServiceButton(true,true,false);
+    hideUserData();
 }
 
 function logOutRequestGET() {
     $.ajax({
         url: 'logout',
         type: 'GET',
-        success: function (data, textStatus) {
-            sentsCurrentUserRequestPost();
+        success: function (data) {
+            logout();
         },
         error: function (e) {
             console.log("ERROR: ", e);
@@ -134,13 +111,14 @@ function autentificationRequestPOST(email, password) {
         mimeType: 'application/json',
         success: function (data, textStatus) {
             if (data.succes) {
+                $("#authenticationTable").css("visibility", "hidden");
                 userAuthenticationSucces(data);
                 showServiceButton(false, false, true);
             } else {
                 if (data.noUser != null) {
-                    showPopUpAuthentification("This is user doesn't find in system");
+                    showPopUpMessage("This is user doesn't find in system");
                 } else {
-                    showPopUpAuthentification("This password isn't correct");
+                    showPopUpMessage("This password isn't correct");
                 }
             }
         },
@@ -161,28 +139,16 @@ function registrationRequestPOST(login, email, password) {
         mimeType: 'application/json',
         success: function (data, textStatus) {
             if (data.succes) {
-                $("#mainContext").empty();
+                $("#registrationTable").css("visibility", "hidden");
                 showServiceButton(false, true, false);
             } else {
-                showPopUpRegistration("User with parameters: " + data.fail + " was created1");
+                showPopUpMessage("User with parameters: " + data.fail + " was created1");
             }
         },
         error: function (e) {
             console.log("ERROR: ", e);
         }
     });
-}
-
-function createAutentificationForm() {
-    $("#mainContext").empty();
-    $("#mainContext").html(createAutentificationHtml());
-
-}
-
-function createRegistrationForm() {
-    $("#mainContext").empty();
-    $("#mainContext").html(createRegistartionHtml());
-
 }
 
 function sentsCurrentUserRequestPost() {
@@ -204,15 +170,18 @@ function sentsCurrentUserRequestPost() {
         }
     });
 }
-$(function () {
+/*$(function () {
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     $(document).ajaxSend(function (e, xhr, options) {
         xhr.setRequestHeader(header, token);
     });
-});
+});*/
 $(document).ready(function () {
-    sentsCurrentUserRequestPost();
     addSignInClickEvent();
     addRegistartionClickEvent();
+    addLogOutAction();
+    addRegistrationAction();
+    addAutentificationAction();
+    sentsCurrentUserRequestPost();
 });

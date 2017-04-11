@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 
 
 @RestController
@@ -33,7 +36,8 @@ public class AuthenticationController {
     HttpServletRequest request;
     @Autowired
     SecurityContext contextHolder;
-
+    @Autowired
+    HttpSession session;
 
     @RequestMapping(method = RequestMethod.POST)
     public JSONObject authentication(@RequestBody JSONObject jsonObject) {
@@ -48,12 +52,14 @@ public class AuthenticationController {
             Authentication authentication = authenticationManager.authenticate(token);
             resultJson.put("succes", true);
             resultJson.put("login", authentication.getName());
-            contextHolder.setAuthentication(authentication);
+            resultJson.put("avatar", "http://localhost:8082/i-profile/resources/img/main_avatar.jpg");
+            resultJson.put("allUserName", "WOLF WOLF WOLF WOLF WOLF WOLF WOLF WOLF");
+            //contextHolder.setAuthentication(authentication);
+            session.setAttribute(request.getSession().getId(), authentication);
         } catch (AuthenticationException e) {
             resultJson.put("succes", false);
             resultJson.put("noUser", "no user");
         }
-
         return resultJson;
     }
 }

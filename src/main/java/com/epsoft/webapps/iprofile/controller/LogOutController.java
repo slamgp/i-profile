@@ -19,20 +19,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 @RestController
 @RequestMapping("/logout")
 public class LogOutController {
     @Autowired
-    SecurityContext contextHolder;
+    HttpSession session;
+    @Autowired
+    HttpServletRequest request;
 
     @RequestMapping(method = RequestMethod.GET)
     public JSONObject logout() {
-        Authentication auth = contextHolder.getAuthentication();
+        Authentication auth = (Authentication) session.getAttribute(request.getSession().getId());
         JSONObject resultJson = new JSONObject();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
-            contextHolder.setAuthentication(null);
+            session.setAttribute(request.getSession().getId(), null);
         } else {
             resultJson.put("succes", false);
         }

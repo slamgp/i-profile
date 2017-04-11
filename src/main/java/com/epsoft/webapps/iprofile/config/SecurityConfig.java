@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,8 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import javax.validation.constraints.NotNull;
 
@@ -24,29 +21,31 @@ import javax.validation.constraints.NotNull;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService userService;
-     public static final String X_AUTH_TOKEN = "X-Auth-Token";
+    public static final String X_AUTH_TOKEN = "X-Auth-Token";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-           RequestHeaderAuthenticationFilter requestHeaderAuthenticationFilter = fromContext(http,
-              RequestHeaderAuthenticationFilter.class);
+        RequestHeaderAuthenticationFilter requestHeaderAuthenticationFilter = fromContext(http,
+                RequestHeaderAuthenticationFilter.class);
         http
                 .addFilter(requestHeaderAuthenticationFilter)
                 .authorizeRequests()
                 //   .antMatchers("/welcome").hasRole("ANONYMOUS")
-                  // .antMatchers(HttpMethod.GET, "/authentication").hasRole("ANONYMOUS")
+                // .antMatchers(HttpMethod.GET, "/authentication").hasRole("ANONYMOUS")
                 //  .antMatchers(HttpMethod.POST, "/authentication").hasRole("ANONYMOUS")
                 .anyRequest().permitAll()
-                .and();
-              //  .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-        //  .csrf().disable();
+                .and()
+        //   .httpBasic();
+        //  .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+          .csrf().disable()
+     //   .httpBasic();
 
-             //   .formLogin()
-              //  .loginPage("/")
-              //  .and();
-              //  .httpBasic()
-              //  .and()
-             //   .anonymous().disable();
+          .formLogin()
+          .loginPage("/");
+        //  .and();
+        //  .httpBasic()
+        //  .and()
+        //   .anonymous().disable();
 
     }
 
@@ -68,10 +67,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(bcryptPasswordEncoder());
     }
 
-       @Bean
-       public AuthenticationManager authenticationManager() {
-          return new TokenBasedAuthenticationManager();
-      }
+    @Bean
+    public AuthenticationManager authenticationManager() {
+        return new TokenBasedAuthenticationManager();
+    }
+
     @Bean
     public RequestHeaderAuthenticationFilter requestHeaderAuthenticationFilter(final AuthenticationManager authenticationManager) {
         RequestHeaderAuthenticationFilter filter = new MyRequestHeaderAuthenticationFilter();
