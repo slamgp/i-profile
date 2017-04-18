@@ -1,6 +1,7 @@
 package com.epsoft.webapps.iprofile.config;
 
 import com.epsoft.webapps.iprofile.model.security.User;
+import com.epsoft.webapps.iprofile.service.JsonResponseCreator;
 import com.epsoft.webapps.iprofile.service.UserService;
 import org.springframework.context.annotation.*;
 import org.springframework.security.core.context.SecurityContext;
@@ -44,7 +45,6 @@ public class Config extends WebMvcConfigurerAdapter {
         SecureRandom random = new SecureRandom();
         byte bytes[] = new byte[16];
         random.nextBytes(bytes);
-
         return new BCryptPasswordEncoder(4, random);
     }
 
@@ -61,5 +61,10 @@ public class Config extends WebMvcConfigurerAdapter {
     @Bean
     public SecurityContext contextHolder() {
         return  SecurityContextHolder.getContext();
+    }
+
+    @Bean
+    public JsonResponseCreator jsonResponseCreator() {
+        return new JsonResponseCreator();
     }
 }

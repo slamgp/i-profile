@@ -2,6 +2,7 @@ package com.epsoft.webapps.iprofile.controller;
 
 import com.epsoft.webapps.iprofile.model.security.User;
 import com.epsoft.webapps.iprofile.model.security.UserAuthentication;
+import com.epsoft.webapps.iprofile.service.JsonResponseCreator;
 import com.epsoft.webapps.iprofile.service.UserService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +39,12 @@ public class AuthenticationController {
     SecurityContext contextHolder;
     @Autowired
     HttpSession session;
+    @Autowired
+    JsonResponseCreator responseCreator;
 
     @RequestMapping(method = RequestMethod.POST)
     public JSONObject authentication(@RequestBody JSONObject jsonObject) {
-        JSONObject resultJson = new JSONObject();
+        JSONObject resultJson;
         String email    = (String) jsonObject.get("email");
         String password = (String) jsonObject.get("password");
 
@@ -50,15 +53,11 @@ public class AuthenticationController {
         token.setDetails(new WebAuthenticationDetails(request));
         try {
             Authentication authentication = authenticationManager.authenticate(token);
-            resultJson.put("succes", true);
-            resultJson.put("login", authentication.getName());
-            resultJson.put("avatar", "http://localhost:8082/i-profile/resources/img/main_avatar.jpg");
-            resultJson.put("allUserName", "WOLF WOLF WOLF WOLF WOLF WOLF WOLF WOLF");
+            resultJson = responseCreator.createAuthenticateSuccesResponse(authentication);
             //contextHolder.setAuthentication(authentication);
             session.setAttribute(request.getSession().getId(), authentication);
         } catch (AuthenticationException e) {
-            resultJson.put("succes", false);
-            resultJson.put("noUser", "no user");
+            resultJson = responseCreator.createAuthenticateFailureResponse();
         }
         return resultJson;
     }

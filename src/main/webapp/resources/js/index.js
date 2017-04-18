@@ -9,13 +9,31 @@ function showUserData(data) {
     $("#avatarContainer").css("visibility", "visible");
     $("#nameContainer").css("visibility", "visible");
     $("#nameContainer").text(data.allUserName)
+    showUserAppearance(data.appearance);
 }
 
+function showUserAppearance(data) {
+    $("#appearanceContainer").css("visibility", "visible");
+    $("#appearanceContainer").append(creteParagraph("age:", data.age, true));
+    $("#appearanceContainer").append(creteParagraph("high:", data.high, true));
+    $("#appearanceContainer").append(creteParagraph("weight:", data.weight, true));
+    $("#appearanceContainer").append(creteParagraph("main foot:", data.mainFoot, false));
+}
+
+function creteParagraph(name, description, addNewStr) {
+    return "&nbsp;" + name  + "&nbsp;&nbsp; <u>" + description + (addNewStr ? "</u><br>" : "</u>");
+}
 
 function hideUserData() {
     $("#userNameLable").text("");
     $("#avatarContainer").css("visibility", "hidden");
     $("#nameContainer").css("visibility", "hidden");
+    hideUserAppearance();
+}
+
+function hideUserAppearance() {
+    $("#appearanceContainer").css("visibility", "hidden");
+    $("#appearanceContainer").empty();
 }
 
 function userAuthenticationFail(data) {

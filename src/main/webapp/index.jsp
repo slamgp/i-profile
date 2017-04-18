@@ -52,11 +52,15 @@
             </div>
             <div class = "avatarContainer" id = "avatarContainer">
 
-            </div>>
+            </div>
 
             <div class = "nameContainer" id = "nameContainer">
 
-            </div>>
+            </div>
+
+            <div class = "appearanceContainer" id = "appearanceContainer">
+
+            </div>
         </div>
         <script src="resources/js/jquery-2.2.4.js"></script>
         <script src="resources/js/index.js"></script>

@@ -1,6 +1,7 @@
 package com.epsoft.webapps.iprofile.controller;
 
 import com.epsoft.webapps.iprofile.model.security.UserAuthentication;
+import com.epsoft.webapps.iprofile.service.JsonResponseCreator;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -23,20 +24,19 @@ public class UserController {
     HttpSession session;
     @Autowired
     HttpServletRequest request;
+    @Autowired
+    JsonResponseCreator responseCreator;
 
     @RequestMapping(method = RequestMethod.POST)
     public JSONObject userRequest() {
 
-        JSONObject resultJson = new JSONObject();
+        JSONObject resultJson;
         Authentication auth = (UserAuthentication) session.getAttribute(request.getSession().getId());
         //contextHolder.getAuthentication();
         if (auth == null || auth instanceof AnonymousAuthenticationToken) {
-            resultJson.put("succes", false);
+            resultJson = responseCreator.createAuthenticateFailureResponse();
         } else {
-            resultJson.put("succes", true);
-            resultJson.put("login", auth.getName());
-            resultJson.put("avatar", "http://localhost:8082/i-profile/resources/img/main_avatar.jpg");
-            resultJson.put("allUserName", "WOLF WOLF WOLF WOLF WOLF WOLF WOLF WOLF");
+            resultJson = responseCreator.createAuthenticateSuccesResponse(auth);
         }
         return resultJson;
     }
