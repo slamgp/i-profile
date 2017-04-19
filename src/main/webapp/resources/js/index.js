@@ -14,14 +14,17 @@ function showUserData(data) {
 
 function showUserAppearance(data) {
     $("#appearanceContainer").css("visibility", "visible");
-    $("#appearanceContainer").append(creteParagraph("age:", data.age, true));
-    $("#appearanceContainer").append(creteParagraph("high:", data.high, true));
-    $("#appearanceContainer").append(creteParagraph("weight:", data.weight, true));
-    $("#appearanceContainer").append(creteParagraph("main foot:", data.mainFoot, false));
+    $(".appearanceTable").css("visibility", "visible");
+    createRow("#appearanceTable", "age:", data.age);
+    createRow("#appearanceTable","high:", data.high);
+    createRow("#appearanceTable","weight:", data.weight);
+    createRow("#appearanceTable","main foot:", data.mainFoot);
 }
 
-function creteParagraph(name, description, addNewStr) {
-    return "&nbsp;" + name  + "&nbsp;&nbsp; <u>" + description + (addNewStr ? "</u><br>" : "</u>");
+function createRow(tableName, field1, field2) {
+    $(tableName).append('<tr></tr>');
+    $(tableName + '> tbody > tr:last').append('<td class = "caption">' + field1 + '</td>');
+    $(tableName + '> tbody > tr:last').append('<td class = "textEdit">' + field2 + '</td>');
 }
 
 function hideUserData() {
@@ -33,6 +36,7 @@ function hideUserData() {
 
 function hideUserAppearance() {
     $("#appearanceContainer").css("visibility", "hidden");
+    $(".appearanceTable").css("visibility", "visible");
     $("#appearanceContainer").empty();
 }
 
@@ -179,9 +183,9 @@ function sentsCurrentUserRequestPost() {
         success: function (data, textStatus) {
             if (data.succes) {
                 userAuthenticationSucces(data);
-           } else {
+            } else {
                 userAuthenticationFail();
-           }
+            }
         },
         error: function (e) {
             console.log("ERROR: ", e);
@@ -189,12 +193,18 @@ function sentsCurrentUserRequestPost() {
     });
 }
 /*$(function () {
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-    $(document).ajaxSend(function (e, xhr, options) {
-        xhr.setRequestHeader(header, token);
-    });
-});*/
+ var token = $("meta[name='_csrf']").attr("content");
+ var header = $("meta[name='_csrf_header']").attr("content");
+ $(document).ajaxSend(function (e, xhr, options) {
+ xhr.setRequestHeader(header, token);
+ });
+ });*/
+function addEditAction() {
+    //$(".nameContainer").bind('mouseenter', function() {
+    //	alert("yes");
+    //})
+}
+
 $(document).ready(function () {
     addSignInClickEvent();
     addRegistartionClickEvent();
@@ -202,4 +212,5 @@ $(document).ready(function () {
     addRegistrationAction();
     addAutentificationAction();
     sentsCurrentUserRequestPost();
+    addEditAction();
 });
