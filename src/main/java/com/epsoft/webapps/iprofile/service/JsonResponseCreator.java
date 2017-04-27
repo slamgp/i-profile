@@ -1,46 +1,42 @@
 package com.epsoft.webapps.iprofile.service;
 
 
+import com.epsoft.webapps.iprofile.model.security.TeamInfo;
+import com.epsoft.webapps.iprofile.model.security.User;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.security.core.Authentication;
 
 public class JsonResponseCreator {
     public JSONObject createAuthenticateSuccesResponse(Authentication authentication) {
+        User user = (User) authentication.getDetails();
         JSONObject resultJson = new JSONObject();
         resultJson.put("succes", true);
         resultJson.put("login", authentication.getName());
-        resultJson.put("avatar", "http://localhost:8082/i-profile/resources/img/main_avatar.jpg");
-        resultJson.put("allUserName", "WOLF WOLF WOLF WOLF");
-        resultJson.put("position", "GK");
+        resultJson.put("avatar", user.getAvatar());
+        resultJson.put("allUserName", user.getAllName());
+        resultJson.put("position", user.getPosition());
         JSONObject appearance = new JSONObject();
-        appearance.put("age", "20 yers");
-        appearance.put("high", "178 cm");
-        appearance.put("weight", "70 kg");
-        appearance.put("mainFoot", "right");
+        appearance.put("age", user.getAppearance().getAge());
+        appearance.put("high", user.getAppearance().getHigh());
+        appearance.put("weight", user.getAppearance().getWeight());
+        appearance.put("mainFoot", user.getAppearance().getMainFoot());
         resultJson.put("appearance",appearance);
-        JSONObject carier = new JSONObject();
-        JSONObject teamInfo = new JSONObject();
-        teamInfo.put("name", "SM-25");
-        teamInfo.put("startPeriod", "01-01-2015");
-        teamInfo.put("endPeriod", "-");
-        teamInfo.put("teamState", "amator");
-        teamInfo.put("region", "Kiev obl");
-        teamInfo.put("area", "Brovarskiy");
-        teamInfo.put("city", "Semypolki");
-        teamInfo.put("position", "CB, LB, CM");
-        carier.put("info1", teamInfo);
-        JSONObject teamInfo2 = new JSONObject();
-        teamInfo2.put("name", "OVRUT");
-        teamInfo2.put("startPeriod", "01-01-2007");
-        teamInfo2.put("endPeriod", "01-01-2015");
-        teamInfo2.put("teamState", "amator");
-        teamInfo2.put("region", "Kiev obl");
-        teamInfo2.put("area", "Brovarskiy");
-        teamInfo2.put("city", "Semypolki");
-        teamInfo2.put("position", "CB, LB, CM");
-        carier.put("info2", teamInfo2);
-        resultJson.put("carier",carier);
-        resultJson.put("additionalIInfo", "No aditional Info");
+        JSONArray carier = new JSONArray();
+        for (TeamInfo teamInfo: user.getTeamsInfo()) {
+            JSONObject teamInfoJson = new JSONObject();
+            teamInfoJson.put("name", teamInfo.getName());
+            teamInfoJson.put("startPeriod", teamInfo.getStartPeriod());
+            teamInfoJson.put("endPeriod", teamInfo.getEndPeriod());
+            teamInfoJson.put("teamState", teamInfo.getTeamState());
+            teamInfoJson.put("region", teamInfo.getRegion());
+            teamInfoJson.put("area", teamInfo.getArea());
+            teamInfoJson.put("city", teamInfo.getCity());
+            teamInfoJson.put("position", teamInfo.getPosition());
+            carier.add(teamInfoJson);
+        }
+        resultJson.put("carier", carier);
+
         return resultJson;
     }
 

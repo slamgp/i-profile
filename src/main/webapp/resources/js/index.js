@@ -1,3 +1,8 @@
+const  MAX_LENGHT_FOR_NAME = 30;
+const  CHANGE_OBJECT_NAME = "change_object";
+const  CHANGE_FIELD_NAME = "change_field";
+const  CHANGE_FIELD_VALUE = "change_value";
+
 function userAuthenticationSucces(data) {
     showUserData(data);
 }
@@ -8,7 +13,7 @@ function showUserData(data) {
     $("#avatarContainer").css("backgroundImage", 'url(' + data.avatar + ')')
     $("#avatarContainer").css("visibility", "visible");
     $("#nameContainer").css("visibility", "visible");
-    $("#nameContainer").text(data.allUserName)
+    $("#nameParagraph").text(data.allUserName)
     showUserAppearance(data.appearance);
 }
 
@@ -200,9 +205,50 @@ function sentsCurrentUserRequestPost() {
  });
  });*/
 function addEditAction() {
-    //$(".nameContainer").bind('mouseenter', function() {
-    //	alert("yes");
-    //})
+    $("#nameContainer").bind('click', function() {
+        name = $("#nameParagraph").text();
+        $("#nameParagraph").css("visibility", "hidden");
+        $("#nameInput").val(name);
+        $("#nameInput").css("visibility", "visible");
+        $("#nameInput").focus();
+    })
+}
+
+function sendDataChageRrequest(object, field, value, callback) {
+    alert(value)
+    $.ajax({
+        url: 'userDataChange',
+        type: 'POST',
+        dataType: 'json',
+        data: JSON.stringify({CHANGE_OBJECT_NAME: object, CHANGE_FIELD_NAME: field, CHANGE_FIELD_VALUE: value}),
+        contentType: 'application/json',
+        mimeType: 'application/json',
+        success: function (data, textStatus) {
+            callback();
+        },
+        error: function (e) {
+            console.log("ERROR: ", e);
+        }
+    });
+}
+
+var callBackActionOnChangeName = function callBackActionOnChangeName() {
+    $("#nameParagraph").text( $(".nameInput").val());
+}
+
+function prepareAllElements() {
+    $(".nameInput").attr("maxlength", MAX_LENGHT_FOR_NAME);
+    $(".nameInput").bind('change', function() {
+    $(".nameInput").css("visibility", "hidden");
+    $("#nameParagraph").css("visibility", "visible");
+    sendDataChageRrequest("user", "allUserName",  $(".nameInput").val(), callBackActionOnChangeName);
+    });
+    $(".nameInput").bind('focusout', function() {
+        $(".nameInput").css("visibility", "hidden");
+        $("#nameParagraph").css("visibility", "visible")
+    });
+
+
 }
 
 $(document).ready(function () {
@@ -213,4 +259,5 @@ $(document).ready(function () {
     addAutentificationAction();
     sentsCurrentUserRequestPost();
     addEditAction();
+    prepareAllElements();
 });

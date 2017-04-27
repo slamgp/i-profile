@@ -3,6 +3,7 @@ package com.epsoft.webapps.iprofile.model.security;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -11,6 +12,12 @@ public class User  implements UserDetails {
     private String email;
     private String password;
     private List<Role> authorities;
+    private String avatar;
+    private String allName;
+    private String position;
+    private UserAppearance appearance;
+    private List<TeamInfo> teamsInfo;
+
 
     public User() {
 
@@ -21,6 +28,16 @@ public class User  implements UserDetails {
         this.email = email;
         this.password = password;
         this.authorities = authorities;
+        avatar = "http://localhost:8082/i-profile/resources/img/main_avatar.jpg";
+        allName = "WOLF WOLF WOLF WOLF";
+        position = "CB";
+        appearance = new UserAppearance(29, 190, 90, "L");
+        TeamInfo teamInfo1 = new TeamInfo("SM-25", "01-01-2015", "-", "amator", "Kiev obl", "Brovarskiy", "Semypolki", "CB, LB, CM");
+        TeamInfo teamInfo2 = new TeamInfo("OVRUT", "01-01-2007", "01-01-2015", "amator", "Kiev obl", "Brovarskiy", "Semypolki", "CB, LB, CM");
+        teamsInfo = new ArrayList<TeamInfo>();
+        teamsInfo.add(teamInfo1);
+        teamsInfo.add(teamInfo2);
+
     }
 
     public String getLogin() {
@@ -73,6 +90,46 @@ public class User  implements UserDetails {
 
     public void setAuthorities(List<Role> authorities) {
         this.authorities = authorities;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public String getAllName() {
+        return allName;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public UserAppearance getAppearance() {
+        return appearance;
+    }
+
+    public List<TeamInfo> getTeamsInfo() {
+        return teamsInfo;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public void setAllName(String allName) {
+        this.allName = allName;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public void setAppearance(UserAppearance appearance) {
+        this.appearance = appearance;
+    }
+
+    public void setTeamsInfo(List<TeamInfo> teamsInfo) {
+        this.teamsInfo = teamsInfo;
     }
 }
 

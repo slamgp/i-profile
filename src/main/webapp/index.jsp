@@ -55,7 +55,8 @@
     </div>
 
     <div class = "nameContainer" id = "nameContainer">
-
+        <input class = "nameInput" id = "nameInput">
+        <p class = "nameParagraph" id = "nameParagraph">
     </div>
 
     <div class = "appearanceContainer" id = "appearanceContainer">
