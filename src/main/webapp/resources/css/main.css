@@ -212,23 +212,24 @@ td.textEdit {
     text-align: left;
     width: 200px;
     font:  italic bold 18px Georgia, serif;
-    cursor:pointer;
+    cursor:text;
     border-radius:5px;
     padding: 0px 0px 0px 5px;
-}
-
-input.dataInput {
-
+    overflow: hidden;
 }
 
 p.nameParagraph {
     position: absolute;
-    top: -10px;
+    top: 0px;
     left: 0px;
-    margin: 0px 0px 0px px;
-    height: 50px;
-    width: 380px;
+    margin: 10px 5px 0px 5px;
+    height: 30px;
+    width: 370px;
+    overflow: hidden;
+    vertical-align: center;
+    border-radius:5px;
 }
+
 
 input.nameInput {
     position: absolute;
@@ -241,6 +242,38 @@ input.nameInput {
     border-radius:5px;
     background-color: rgb(220, 220, 220);
     font:  italic bold 22px/30px Georgia, serif;
+    vertical-align: center;
+    text-align: center;
+
+}
+
+
+p.dataInputParagraph {
+    position: absolute;
+    text-align: left;
+    width: 200px;
+    margin: -12px 0px 0px 0px;
+    font:  italic bold 18px Georgia, serif;
+    cursor:text;
+    border-radius:5px;
+    padding: 0px 0px 0px 5px;
+    overflow: hidden;
+}
+
+input.dataInput {
+    position: absolute;
+    text-align: left;
+    width: 200px;
+    height:19px;
+    margin: -12px 0px 0px 0px;
+    width: 200px;
+    font:  italic bold 16px Georgia, serif;
+    cursor:text;
+    border-radius:5px;
+    padding: 0px 0px 0px 5px;
+    overflow: hidden;
+    background-color: rgb(220, 220, 220);
+    visibility: hidden;
 
 }
 
@@ -248,6 +281,6 @@ input.nameInput {
     cursor: text;
 }
 
-.dataInput:hover ,.textEdit:hover, div.nameContainer:hover  {
-    background-color: rgba(255, 255, 0,0.7);
+.dataInput:hover ,.textEdit:hover, .nameParagraph:hover, p.dataInputParagraph :hover {
+    background-color: rgba(255, 255, 0,0.3);
 }

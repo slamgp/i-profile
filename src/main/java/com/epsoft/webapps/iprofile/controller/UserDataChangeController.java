@@ -28,13 +28,27 @@ public class UserDataChangeController {
         JSONObject resultJson = new JSONObject();;
         Authentication auth = (UserAuthentication) session.getAttribute(request.getSession().getId());
         if (auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
-            if (((String) jsonObject.get("CHANGE_OBJECT_NAME")).equals(User.class.getSimpleName().toLowerCase())) {
-                User user = (User) auth.getDetails();
-                user.setAllName((String) jsonObject.get("CHANGE_FIELD_VALUE"));
-            }
+            setField((User) auth.getDetails(), (String) jsonObject.get("change_field"), (String) jsonObject.get("change_value"));
         }
         return resultJson;
     }
 
+    private void setField(User user, String fieldName, String fieldValue) {
+        if( "allUserName".equals(fieldName)) {
+            user.setAllName(fieldValue);
+        }
+        if( "age".equals(fieldName)) {
+            user.getAppearance().setAge(Integer.valueOf(fieldValue));
+        }
+        if( "high".equals(fieldName)) {
+            user.getAppearance().setHigh(Integer.valueOf(fieldValue));
+        }
+        if( "weight".equals(fieldName)) {
+            user.getAppearance().setWeight(Integer.valueOf(fieldValue));
+        }
+        if( "mainFoot".equals(fieldName)) {
+            user.getAppearance().setMainFoot(fieldValue);
+        }
+    }
 
 }

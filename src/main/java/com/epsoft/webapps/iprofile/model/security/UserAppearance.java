@@ -28,4 +28,20 @@ public class UserAppearance {
     public String getMainFoot() {
         return mainFoot;
     }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setHigh(int high) {
+        this.high = high;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public void setMainFoot(String mainFoot) {
+        this.mainFoot = mainFoot;
+    }
 }

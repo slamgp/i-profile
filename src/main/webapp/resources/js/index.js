@@ -1,48 +1,8 @@
 const  MAX_LENGHT_FOR_NAME = 30;
-const  CHANGE_OBJECT_NAME = "change_object";
-const  CHANGE_FIELD_NAME = "change_field";
-const  CHANGE_FIELD_VALUE = "change_value";
+
 
 function userAuthenticationSucces(data) {
     showUserData(data);
-}
-
-function showUserData(data) {
-    $("#userNameLable").text(data.login);
-    showServiceButton(false, false, true);
-    $("#avatarContainer").css("backgroundImage", 'url(' + data.avatar + ')')
-    $("#avatarContainer").css("visibility", "visible");
-    $("#nameContainer").css("visibility", "visible");
-    $("#nameParagraph").text(data.allUserName)
-    showUserAppearance(data.appearance);
-}
-
-function showUserAppearance(data) {
-    $("#appearanceContainer").css("visibility", "visible");
-    $(".appearanceTable").css("visibility", "visible");
-    createRow("#appearanceTable", "age:", data.age);
-    createRow("#appearanceTable","high:", data.high);
-    createRow("#appearanceTable","weight:", data.weight);
-    createRow("#appearanceTable","main foot:", data.mainFoot);
-}
-
-function createRow(tableName, field1, field2) {
-    $(tableName).append('<tr></tr>');
-    $(tableName + '> tbody > tr:last').append('<td class = "caption">' + field1 + '</td>');
-    $(tableName + '> tbody > tr:last').append('<td class = "textEdit">' + field2 + '</td>');
-}
-
-function hideUserData() {
-    $("#userNameLable").text("");
-    $("#avatarContainer").css("visibility", "hidden");
-    $("#nameContainer").css("visibility", "hidden");
-    hideUserAppearance();
-}
-
-function hideUserAppearance() {
-    $("#appearanceContainer").css("visibility", "hidden");
-    $(".appearanceTable").css("visibility", "visible");
-    $("#appearanceContainer").empty();
 }
 
 function userAuthenticationFail(data) {
@@ -214,17 +174,16 @@ function addEditAction() {
     })
 }
 
-function sendDataChageRrequest(object, field, value, callback) {
-    alert(value)
+function sendUserChageRrequest(field, value, callback, caption, value) {
     $.ajax({
         url: 'userDataChange',
         type: 'POST',
         dataType: 'json',
-        data: JSON.stringify({CHANGE_OBJECT_NAME: object, CHANGE_FIELD_NAME: field, CHANGE_FIELD_VALUE: value}),
+        data: JSON.stringify({"change_field": field, "change_value": value}),
         contentType: 'application/json',
         mimeType: 'application/json',
         success: function (data, textStatus) {
-            callback();
+            callback(caption, value);
         },
         error: function (e) {
             console.log("ERROR: ", e);
@@ -232,16 +191,16 @@ function sendDataChageRrequest(object, field, value, callback) {
     });
 }
 
-var callBackActionOnChangeName = function callBackActionOnChangeName() {
-    $("#nameParagraph").text( $(".nameInput").val());
+var callBackActionOnChange = function callBackActionOnChange(caption, value) {
+    caption.text(value);
 }
 
 function prepareAllElements() {
     $(".nameInput").attr("maxlength", MAX_LENGHT_FOR_NAME);
     $(".nameInput").bind('change', function() {
-    $(".nameInput").css("visibility", "hidden");
-    $("#nameParagraph").css("visibility", "visible");
-    sendDataChageRrequest("user", "allUserName",  $(".nameInput").val(), callBackActionOnChangeName);
+        $(".nameInput").css("visibility", "hidden");
+        $("#nameParagraph").css("visibility", "visible");
+        sendUserChageRrequest("allUserName",  $(".nameInput").val(), callBackActionOnChange,  $("#nameParagraph"),  $(".nameInput").val());
     });
     $(".nameInput").bind('focusout', function() {
         $(".nameInput").css("visibility", "hidden");
@@ -250,6 +209,67 @@ function prepareAllElements() {
 
 
 }
+
+function addEditAppearanceAction() {
+    $(".textEdit").bind('click', function() {
+        oldValue = $(this ).find("#caption").text();
+        $(this ).find("#caption").css("visibility", "hidden");
+        $(this ).find("#value").css("visibility", "visible");
+        $(this ).find("#value").val(oldValue);
+        $(this ).find("#value").focus();
+    });
+
+    $(".dataInput").bind('change', function() {
+        $(this ).parent().find("#caption").css("visibility", "visible");
+        $(this ).parent().find("#value").css("visibility", "hidden");
+        sendUserChageRrequest($(this).parent().attr("id"),  $(this).val(), callBackActionOnChange, $(this ).parent().find("#caption"), $(this ).parent().find("#value").val());
+    });
+    $(".dataInput").bind('focusout', function() {
+        $(this ).parent().find("#caption").css("visibility", "visible");
+        $(this ).parent().find("#value").css("visibility", "hidden");
+    });
+}
+
+function showUserAppearance(data) {
+    $("#appearanceContainer").css("visibility", "visible");
+    $(".appearanceTable").css("visibility", "visible");
+    createRow("#appearanceTable", "age:", data.age, "age", "number");
+    createRow("#appearanceTable","high:", data.high, "high",  "number");
+    createRow("#appearanceTable","weight:", data.weight, "weight",  "number");
+    createRow("#appearanceTable","main foot:", data.mainFoot, "mainFoot",  "text");
+    addEditAppearanceAction();
+}
+
+function createRow(tableName, field1, field2, textEditId, type) {
+    $(tableName).append('<tr></tr>');
+    $(tableName + '> tbody > tr:last').append('<td class = "caption">' + field1 + '</td>');
+    $(tableName + '> tbody > tr:last').append('<td class = "textEdit" id = ' + textEditId + '> <p class= "dataInputParagraph" id = "caption">' + field2 + '</p> <input id = "value" class = "dataInput"'+ 'type = ' + type +'></input></td>');
+}
+
+function showUserData(data) {
+    $("#userNameLable").text(data.login);
+    showServiceButton(false, false, true);
+    $("#avatarContainer").css("backgroundImage", 'url(' + data.avatar + ')')
+    $("#avatarContainer").css("visibility", "visible");
+    $("#nameContainer").css("visibility", "visible");
+    $("#nameParagraph").text(data.allUserName)
+    showUserAppearance(data.appearance);
+}
+
+
+function hideUserData() {
+    $("#userNameLable").text("");
+    $("#avatarContainer").css("visibility", "hidden");
+    $("#nameContainer").css("visibility", "hidden");
+    hideUserAppearance();
+}
+
+function hideUserAppearance() {
+    $("#appearanceContainer").css("visibility", "hidden");
+    $(".appearanceTable").css("visibility", "visible");
+    $("#appearanceContainer").empty();
+}
+
 
 $(document).ready(function () {
     addSignInClickEvent();
