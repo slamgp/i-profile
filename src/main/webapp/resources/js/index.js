@@ -171,7 +171,11 @@ function addEditAction() {
         $("#nameInput").val(name);
         $("#nameInput").css("visibility", "visible");
         $("#nameInput").focus();
-    })
+    });
+
+    $("#avatarContainer").bind('click', function() {
+        $("#loadImageContext").css("visibility", "visible");
+    });
 }
 
 function sendUserChageRrequest(field, value, callback, caption, value) {
@@ -206,7 +210,6 @@ function prepareAllElements() {
         $(".nameInput").css("visibility", "hidden");
         $("#nameParagraph").css("visibility", "visible")
     });
-
 
 }
 

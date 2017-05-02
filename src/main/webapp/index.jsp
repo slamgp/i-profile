@@ -50,6 +50,7 @@
     <div class = "userDetail" id = "userDetailContext">
         <label class = "userNameLabel" id = "userNameLable"></label>
     </div>
+
     <div class = "avatarContainer" id = "avatarContainer">
 
     </div>
@@ -61,6 +62,10 @@
 
     <div class = "appearanceContainer" id = "appearanceContainer">
         <table class="appearanceTable" id="appearanceTable"></table>
+    </div>
+
+    <div class = "loadImageContext" id = "loadImageContext">
+        <img class = "avatarImage"  alt="FOTO">
     </div>
 </div>
 <script src="resources/js/jquery-2.2.4.js"></script>
