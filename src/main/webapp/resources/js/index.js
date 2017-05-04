@@ -1,4 +1,4 @@
-const  MAX_LENGHT_FOR_NAME = 30;
+const MAX_LENGHT_FOR_NAME = 30;
 
 
 function userAuthenticationSucces(data) {
@@ -71,7 +71,7 @@ function showServiceButton(registration, signIn, signOut) {
 }
 
 function logout() {
-    showServiceButton(true,true,false);
+    showServiceButton(true, true, false);
     hideUserData();
 }
 
@@ -165,7 +165,7 @@ function sentsCurrentUserRequestPost() {
  });
  });*/
 function addEditAction() {
-    $("#nameContainer").bind('click', function() {
+    $("#nameContainer").bind('click', function () {
         name = $("#nameParagraph").text();
         $("#nameParagraph").css("visibility", "hidden");
         $("#nameInput").val(name);
@@ -173,7 +173,7 @@ function addEditAction() {
         $("#nameInput").focus();
     });
 
-    $("#avatarContainer").bind('click', function() {
+    $("#avatarContainer").bind('click', function () {
         $("#loadImageContext").css("visibility", "visible");
     });
 }
@@ -201,12 +201,12 @@ var callBackActionOnChange = function callBackActionOnChange(caption, value) {
 
 function prepareAllElements() {
     $(".nameInput").attr("maxlength", MAX_LENGHT_FOR_NAME);
-    $(".nameInput").bind('change', function() {
+    $(".nameInput").bind('change', function () {
         $(".nameInput").css("visibility", "hidden");
         $("#nameParagraph").css("visibility", "visible");
-        sendUserChageRrequest("allUserName",  $(".nameInput").val(), callBackActionOnChange,  $("#nameParagraph"),  $(".nameInput").val());
+        sendUserChageRrequest("allUserName", $(".nameInput").val(), callBackActionOnChange, $("#nameParagraph"), $(".nameInput").val());
     });
-    $(".nameInput").bind('focusout', function() {
+    $(".nameInput").bind('focusout', function () {
         $(".nameInput").css("visibility", "hidden");
         $("#nameParagraph").css("visibility", "visible")
     });
@@ -214,22 +214,22 @@ function prepareAllElements() {
 }
 
 function addEditAppearanceAction() {
-    $(".textEdit").bind('click', function() {
-        oldValue = $(this ).find("#caption").text();
-        $(this ).find("#caption").css("visibility", "hidden");
-        $(this ).find("#value").css("visibility", "visible");
-        $(this ).find("#value").val(oldValue);
-        $(this ).find("#value").focus();
+    $(".textEdit").bind('click', function () {
+        oldValue = $(this).find("#caption").text();
+        $(this).find("#caption").css("visibility", "hidden");
+        $(this).find("#value").css("visibility", "visible");
+        $(this).find("#value").val(oldValue);
+        $(this).find("#value").focus();
     });
 
-    $(".dataInput").bind('change', function() {
-        $(this ).parent().find("#caption").css("visibility", "visible");
-        $(this ).parent().find("#value").css("visibility", "hidden");
-        sendUserChageRrequest($(this).parent().attr("id"),  $(this).val(), callBackActionOnChange, $(this ).parent().find("#caption"), $(this ).parent().find("#value").val());
+    $(".dataInput").bind('change', function () {
+        $(this).parent().find("#caption").css("visibility", "visible");
+        $(this).parent().find("#value").css("visibility", "hidden");
+        sendUserChageRrequest($(this).parent().attr("id"), $(this).val(), callBackActionOnChange, $(this).parent().find("#caption"), $(this).parent().find("#value").val());
     });
-    $(".dataInput").bind('focusout', function() {
-        $(this ).parent().find("#caption").css("visibility", "visible");
-        $(this ).parent().find("#value").css("visibility", "hidden");
+    $(".dataInput").bind('focusout', function () {
+        $(this).parent().find("#caption").css("visibility", "visible");
+        $(this).parent().find("#value").css("visibility", "hidden");
     });
 }
 
@@ -237,16 +237,24 @@ function showUserAppearance(data) {
     $("#appearanceContainer").css("visibility", "visible");
     $(".appearanceTable").css("visibility", "visible");
     createRow("#appearanceTable", "age:", data.age, "age", "number");
-    createRow("#appearanceTable","high:", data.high, "high",  "number");
-    createRow("#appearanceTable","weight:", data.weight, "weight",  "number");
-    createRow("#appearanceTable","main foot:", data.mainFoot, "mainFoot",  "text");
+    createRow("#appearanceTable", "high:", data.high, "high", "number");
+    createRow("#appearanceTable", "weight:", data.weight, "weight", "number");
+    createRow("#appearanceTable", "main foot:", data.mainFoot, "mainFoot", "text");
     addEditAppearanceAction();
 }
 
 function createRow(tableName, field1, field2, textEditId, type) {
     $(tableName).append('<tr></tr>');
     $(tableName + '> tbody > tr:last').append('<td class = "caption">' + field1 + '</td>');
-    $(tableName + '> tbody > tr:last').append('<td class = "textEdit" id = ' + textEditId + '> <p class= "dataInputParagraph" id = "caption">' + field2 + '</p> <input id = "value" class = "dataInput"'+ 'type = ' + type +'></input></td>');
+    $(tableName + '> tbody > tr:last').append('<td class = "textEdit" id = ' + textEditId + '> <p class= "dataInputParagraph" id = "caption">' + field2 + '</p> <input id = "value" class = "dataInput"' + 'type = ' + type + '></input></td>');
+}
+
+function showCarier(carier) {
+    if (carier != null && carier != undefined) {
+        for (i = 0; i < carier.length; i++) {
+          alert(carier[i].name);
+        }
+    }
 }
 
 function showUserData(data) {
@@ -257,6 +265,7 @@ function showUserData(data) {
     $("#nameContainer").css("visibility", "visible");
     $("#nameParagraph").text(data.allUserName)
     showUserAppearance(data.appearance);
+    showCarier(data.carier);
 }
 
 
