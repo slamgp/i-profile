@@ -236,7 +236,6 @@ function prepareAllElements() {
         var  bytesOfFile =  file.replace('data:image/jpeg;base64,', "");
         bytesOfFile = bytesOfFile.replace('data:image/png;base64,', '+')
         bytesOfFile = bytesOfFile.replace(' ', '+')
-        alert(bytesOfFile);
         sendUserChageRrequest("avatar", bytesOfFile);
     });
 }

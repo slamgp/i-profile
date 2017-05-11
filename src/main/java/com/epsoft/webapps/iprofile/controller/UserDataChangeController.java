@@ -61,8 +61,8 @@ public class UserDataChangeController {
             byte[] array = DatatypeConverter.parseBase64Binary(fieldValue);
             FileOutputStream fos = null;
             try {
-                String userDir = new File(".").getCanonicalPath();
-                String allPathDir = userDir + "\\avatars\\" + user.getId() + "\\";
+                String userDir = request.getServletContext().getRealPath("");
+                String allPathDir = userDir + "\\resources\\img\\avatars\\" + user.getId() + "\\";
                 File userDirectory = new File(allPathDir);
                 userDirectory.mkdirs();
                 File userAvatarFile = new File(allPathDir + "avatar.jpg");
@@ -73,6 +73,7 @@ public class UserDataChangeController {
                 fos = new FileOutputStream(userAvatarFile);
                 fos.write(array, 0, array.length);
                 fos.close();
+                user.setAvatar("/i-profile/resources/img/avatars/" + user.getId()+"/avatar.jpg");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
