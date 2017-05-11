@@ -65,7 +65,11 @@
     </div>
 
     <div class = "loadImageContext" id = "loadImageContext">
-        <img class = "avatarImage"  alt="FOTO">
+        <img class = "avatarImage"   id = "avatarImage">
+        <label class = "loadImageLabel" text="save">choose image
+            <input class = "loadImage" id = "loadImage" type="file" value="load avatar" accept="image/jpeg, image/png">
+        </label>
+        <input class = "saveImage" id = "saveImage" type="button" value="save">
     </div>
 </div>
 <script src="resources/js/jquery-2.2.4.js"></script>

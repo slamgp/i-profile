@@ -178,7 +178,7 @@ function addEditAction() {
     });
 }
 
-function sendUserChageRrequest(field, value, callback, caption, value) {
+function sendUserChageRrequest(field, value, callback, caption) {
     $.ajax({
         url: 'userDataChange',
         type: 'POST',
@@ -187,7 +187,9 @@ function sendUserChageRrequest(field, value, callback, caption, value) {
         contentType: 'application/json',
         mimeType: 'application/json',
         success: function (data, textStatus) {
-            callback(caption, value);
+            if ((callback != null) && (callback != undefined)) {
+                callback(caption, value);
+            }
         },
         error: function (e) {
             console.log("ERROR: ", e);
@@ -204,13 +206,39 @@ function prepareAllElements() {
     $(".nameInput").bind('change', function () {
         $(".nameInput").css("visibility", "hidden");
         $("#nameParagraph").css("visibility", "visible");
-        sendUserChageRrequest("allUserName", $(".nameInput").val(), callBackActionOnChange, $("#nameParagraph"), $(".nameInput").val());
+        sendUserChageRrequest("allUserName", $(".nameInput").val(), callBackActionOnChange, $("#nameParagraph"));
     });
     $(".nameInput").bind('focusout', function () {
         $(".nameInput").css("visibility", "hidden");
         $("#nameParagraph").css("visibility", "visible")
     });
 
+    $(".loadImage").bind('change', function (event) {
+        $("#saveImage").css("visibility", "visible");
+        var avatarFile = event.target.files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            $("#avatarImage").attr('src', reader.result);
+        }
+
+        if (avatarFile) {
+            reader.readAsDataURL(avatarFile);
+        } else {
+            $("#avatarImage").attr('src', "");
+        }
+    });
+
+    $(".saveImage").bind('click', function (event) {
+        var formData = new FormData();
+        formData.append("image", $("#avatarImage").attr('src'));
+        var file = $("#avatarImage").attr('src');
+        var  bytesOfFile =  file.replace('data:image/jpeg;base64,', "");
+        bytesOfFile = bytesOfFile.replace('data:image/png;base64,', '+')
+        bytesOfFile = bytesOfFile.replace(' ', '+')
+        alert(bytesOfFile);
+        sendUserChageRrequest("avatar", bytesOfFile);
+    });
 }
 
 function addEditAppearanceAction() {
@@ -225,7 +253,7 @@ function addEditAppearanceAction() {
     $(".dataInput").bind('change', function () {
         $(this).parent().find("#caption").css("visibility", "visible");
         $(this).parent().find("#value").css("visibility", "hidden");
-        sendUserChageRrequest($(this).parent().attr("id"), $(this).val(), callBackActionOnChange, $(this).parent().find("#caption"), $(this).parent().find("#value").val());
+        sendUserChageRrequest($(this).parent().attr("id"), $(this).val(), callBackActionOnChange, $(this).parent().find("#caption"));
     });
     $(".dataInput").bind('focusout', function () {
         $(this).parent().find("#caption").css("visibility", "visible");
@@ -250,11 +278,11 @@ function createRow(tableName, field1, field2, textEditId, type) {
 }
 
 function showCarier(carier) {
-    if (carier != null && carier != undefined) {
-        for (i = 0; i < carier.length; i++) {
-          alert(carier[i].name);
-        }
-    }
+    // if (carier != null && carier != undefined) {
+    //  for (i = 0; i < carier.length; i++) {
+    //   alert(carier[i].name);
+    // }
+    //  }
 }
 
 function showUserData(data) {

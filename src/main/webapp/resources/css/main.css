@@ -153,6 +153,7 @@ div.avatarContainer {
     box-shadow: 0px 0px 10px #000;
     text-align: center;
     visibility: hidden;
+    cursor: pointer;
 }
 
 
@@ -160,11 +161,45 @@ div.loadImageContext {
     position: absolute;
     top: 55px;
     margin: 0px 0px 0px 10px;
-    height: 200px;
+    height: 190px;
     width: 150px;
     visibility: hidden;
     background-color: rgba(250,250,250,0.5);
     border-radius:5px;
+}
+
+input.saveImage {
+    margin: 0px 5px 0px 90px;
+    visibility: hidden;
+    top: 155px;
+    height: 30px;
+    width: 60px;
+}
+
+input.loadImage  {
+    position: absolute;
+    height: 40px;
+    width: 150px;
+    margin: 70px 60px 0px 5px;
+    opacity:0;
+}
+
+label.loadImageLabel  {
+    top: 70px;
+    margin: 0px 0px 0px 0px;
+    height: 40px;
+    width: 150px;
+    text-align: center;
+    vertical-align: center;
+    text-decoration: underline;
+    font: italic bold 18px/20px Georgia, serif;
+    color: red;
+}
+
+input.saveImage, label.loadImageLabel {
+    position: absolute;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 img.avatarImage {

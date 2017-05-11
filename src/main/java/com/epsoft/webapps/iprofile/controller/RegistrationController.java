@@ -28,7 +28,7 @@ public class RegistrationController {
     @RequestMapping(method = RequestMethod.POST)
     public JSONObject registration(@RequestBody JSONObject jsonObject) {
         JSONObject resultJson = new JSONObject();
-        User user = new User((String) jsonObject.get("login"), (String) jsonObject.get("email"),
+        User user = new User(userService.getLasId(), (String) jsonObject.get("login"), (String) jsonObject.get("email"),
                 encoder.encode((String) jsonObject.get("password")), createAuthorities());
         boolean newUser;
         String failDescription = "";

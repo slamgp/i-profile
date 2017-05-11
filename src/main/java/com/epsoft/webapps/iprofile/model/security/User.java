@@ -3,11 +3,15 @@ package com.epsoft.webapps.iprofile.model.security;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class User  implements UserDetails {
+    private long id;
     private String login;
     private String email;
     private String password;
@@ -23,12 +27,13 @@ public class User  implements UserDetails {
 
     }
 
-    public User(String login, String email, String password, List<Role> authorities) {
+    public User(long id, String login, String email, String password, List<Role> authorities) {
+        this.id = id;
         this.login = login;
         this.email = email;
         this.password = password;
         this.authorities = authorities;
-        avatar = "http://localhost:8082/i-profile/resources/img/main_avatar.jpg";
+        avatar = "/i-profile/resources/img/main_avatar.jpg";
         allName = "WOLF WOLF WOLF WOLF";
         position = "CB";
         appearance = new UserAppearance(29, 190, 90, "L");
@@ -130,6 +135,15 @@ public class User  implements UserDetails {
 
     public void setTeamsInfo(List<TeamInfo> teamsInfo) {
         this.teamsInfo = teamsInfo;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+
+        return id;
     }
 }
 

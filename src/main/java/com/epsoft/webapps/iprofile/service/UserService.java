@@ -55,4 +55,8 @@ public class UserService implements UserDetailsService {
         }
         throw new UsernameNotFoundException("user not found with login: " + login);
     }
+
+    public long getLasId() {
+        return users.size() + 1;
+    }
 }
