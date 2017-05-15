@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContextListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.net.URL;
 
 
@@ -58,27 +58,41 @@ public class UserDataChangeController {
             user.getAppearance().setMainFoot(fieldValue);
         }
         if ("avatar".equals(fieldName)) {
-            byte[] array = DatatypeConverter.parseBase64Binary(fieldValue);
-            FileOutputStream fos = null;
-            try {
-                String userDir = request.getServletContext().getRealPath("");
-                String allPathDir = userDir + "\\resources\\img\\avatars\\" + user.getId() + "\\";
-                File userDirectory = new File(allPathDir);
-                userDirectory.mkdirs();
-                File userAvatarFile = new File(allPathDir + "avatar.jpg");
-                if (userAvatarFile.exists()) {
-                    userAvatarFile.delete();
-                }
-                userAvatarFile.createNewFile();
-                fos = new FileOutputStream(userAvatarFile);
-                fos.write(array, 0, array.length);
-                fos.close();
-                user.setAvatar("/i-profile/resources/img/avatars/" + user.getId()+"/avatar.jpg");
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            saveAvatar(user, fieldValue);
+        }
+    }
+
+    private void saveAvatar(User user, String fieldValue) {
+        int avtartHeight = 150;
+        int avtartWidth = 150;
+        byte[] array = DatatypeConverter.parseBase64Binary(fieldValue);
+        FileOutputStream fos = null;
+        try {
+            String userDir = request.getServletContext().getRealPath("");
+            String allPathDir = userDir + "\\resources\\img\\avatars\\" + user.getId() + "\\";
+            File userDirectory = new File(allPathDir);
+            userDirectory.mkdirs();
+            File userAvatarFile = new File(allPathDir + "avatar.jpg");
+            fos = new FileOutputStream(userAvatarFile);
+            BufferedImage image = ImageIO.read(new ByteArrayInputStream(array));
+            BufferedImage newBufferedImage = new BufferedImage(image.getWidth(),
+                    image.getHeight(), BufferedImage.TYPE_INT_RGB);
+            int newWidth = image.getWidth();
+            int newHeight = image.getHeight();
+            if (avtartHeight < newHeight) {
+                newHeight = avtartHeight;
             }
+            if (avtartWidth < newWidth) {
+                newWidth = avtartWidth;
+            }
+            newBufferedImage.createGraphics().drawImage(image, 0, 0, newWidth, newHeight, Color.WHITE, null);
+            ImageIO.write(newBufferedImage, "jpg", fos);
+            fos.close();
+            user.setAvatar("/i-profile/resources/img/avatars/" + user.getId()+"/avatar.jpg");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

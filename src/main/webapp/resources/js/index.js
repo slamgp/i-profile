@@ -234,7 +234,7 @@ function prepareAllElements() {
         formData.append("image", $("#avatarImage").attr('src'));
         var file = $("#avatarImage").attr('src');
         var  bytesOfFile =  file.replace('data:image/jpeg;base64,', "");
-        bytesOfFile = bytesOfFile.replace('data:image/png;base64,', '+')
+        bytesOfFile = bytesOfFile.replace('data:image/png;base64,', '')
         bytesOfFile = bytesOfFile.replace(' ', '+')
         sendUserChageRrequest("avatar", bytesOfFile);
     });
