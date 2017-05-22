@@ -230,13 +230,15 @@ function prepareAllElements() {
     });
 
     $(".saveImage").bind('click', function (event) {
-        var formData = new FormData();
-        formData.append("image", $("#avatarImage").attr('src'));
         var file = $("#avatarImage").attr('src');
         var  bytesOfFile =  file.replace('data:image/jpeg;base64,', "");
         bytesOfFile = bytesOfFile.replace('data:image/png;base64,', '')
         bytesOfFile = bytesOfFile.replace(' ', '+')
         sendUserChageRrequest("avatar", bytesOfFile);
+        $("#saveImage").css("visibility", "hidden");
+        $("#loadImageContext").css("visibility", "hidden");
+
+        $("#avatarContainer").css("backgroundImage",  'url(' + $("#avatarImage").attr('src') + ')')
     });
 }
 
@@ -277,6 +279,7 @@ function createRow(tableName, field1, field2, textEditId, type) {
 }
 
 function showCarier(carier) {
+    $("#carierContainer").css("visibility", "visible");
     // if (carier != null && carier != undefined) {
     //  for (i = 0; i < carier.length; i++) {
     //   alert(carier[i].name);
@@ -301,12 +304,17 @@ function hideUserData() {
     $("#avatarContainer").css("visibility", "hidden");
     $("#nameContainer").css("visibility", "hidden");
     hideUserAppearance();
+    hideUserCarier();
 }
 
-function hideUserAppearance() {
+function hideUserAppearance () {
     $("#appearanceContainer").css("visibility", "hidden");
     $(".appearanceTable").css("visibility", "visible");
     $("#appearanceContainer").empty();
+}
+
+function hideUserCarier () {
+    $("#carierContainer").css("visibility", "hidden");
 }
 
 

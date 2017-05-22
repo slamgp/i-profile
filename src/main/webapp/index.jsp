@@ -64,6 +64,11 @@
         <table class="appearanceTable" id="appearanceTable"></table>
     </div>
 
+
+    <div class = "carierContainer" id = "carierContainer">
+
+    </div>
+
     <div class = "loadImageContext" id = "loadImageContext">
         <img class = "avatarImage"   id = "avatarImage">
         <label class = "loadImageLabel" text="save">choose image
