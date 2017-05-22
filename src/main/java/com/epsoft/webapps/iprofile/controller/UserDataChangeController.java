@@ -75,8 +75,6 @@ public class UserDataChangeController {
             File userAvatarFile = new File(allPathDir + "avatar.jpg");
             fos = new FileOutputStream(userAvatarFile);
             BufferedImage image = ImageIO.read(new ByteArrayInputStream(array));
-            BufferedImage newBufferedImage = new BufferedImage(image.getWidth(),
-                    image.getHeight(), BufferedImage.TYPE_INT_RGB);
             int newWidth = image.getWidth();
             int newHeight = image.getHeight();
             if (avtartHeight < newHeight) {
@@ -85,7 +83,11 @@ public class UserDataChangeController {
             if (avtartWidth < newWidth) {
                 newWidth = avtartWidth;
             }
-            newBufferedImage.createGraphics().drawImage(image, 0, 0, newWidth, newHeight, Color.WHITE, null);
+            BufferedImage newBufferedImage = new BufferedImage(newWidth,
+                    newHeight, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g = newBufferedImage.createGraphics();
+            g.drawImage(image, 0, 0, newWidth, newHeight, Color.WHITE, null);
+            g.dispose();
             ImageIO.write(newBufferedImage, "jpg", fos);
             fos.close();
             user.setAvatar("/i-profile/resources/img/avatars/" + user.getId()+"/avatar.jpg");
