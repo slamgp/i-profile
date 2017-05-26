@@ -293,6 +293,7 @@ function showUserData(data) {
     $("#avatarContainer").css("backgroundImage", 'url(' + data.avatar + ')')
     $("#avatarContainer").css("visibility", "visible");
     $("#nameContainer").css("visibility", "visible");
+    $(".main-menu").css("visibility", "visible");
     $("#nameParagraph").text(data.allUserName)
     showUserAppearance(data.appearance);
     showCarier(data.carier);
@@ -303,6 +304,7 @@ function hideUserData() {
     $("#userNameLable").text("");
     $("#avatarContainer").css("visibility", "hidden");
     $("#nameContainer").css("visibility", "hidden");
+    $(".main-menu").css("visibility", "hidden");
     hideUserAppearance();
     hideUserCarier();
 }

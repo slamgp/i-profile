@@ -76,6 +76,15 @@
         </label>
         <input class = "saveImage" id = "saveImage" type="button" value="save">
     </div>
+
+    <ul class="main-menu">
+        <li><a href="#career">My career</a></li>
+        <li><a href="#adverds">Adverds</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#team">Messages</a></li>
+        <li><a href="#contacts">Abaout projects</a></li>
+    </ul>
+
 </div>
 <script src="resources/js/jquery-2.2.4.js"></script>
 <script src="resources/js/index.js"></script>
