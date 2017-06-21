@@ -25,6 +25,7 @@ public class JsonResponseCreator {
         JSONArray carier = new JSONArray();
         for (TeamInfo teamInfo: user.getTeamsInfo()) {
             JSONObject teamInfoJson = new JSONObject();
+            teamInfoJson.put("id", teamInfo.getId());
             teamInfoJson.put("name", teamInfo.getName());
             teamInfoJson.put("startPeriod", teamInfo.getStartPeriod());
             teamInfoJson.put("endPeriod", teamInfo.getEndPeriod());

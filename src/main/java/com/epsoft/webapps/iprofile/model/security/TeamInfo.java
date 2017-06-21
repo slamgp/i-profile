@@ -1,6 +1,7 @@
 package com.epsoft.webapps.iprofile.model.security;
 
 public class TeamInfo {
+    private int id;
     private String name;
     private String startPeriod;
     private String endPeriod;
@@ -10,7 +11,8 @@ public class TeamInfo {
     private String city;
     private String position;
 
-    public TeamInfo(String name, String startPeriod, String endPeriod, String teamState, String region, String area, String city, String position) {
+    public TeamInfo(int id, String name, String startPeriod, String endPeriod, String teamState, String region, String area, String city, String position) {
+        this.id = id;
         this.name = name;
         this.startPeriod = startPeriod;
         this.endPeriod = endPeriod;
@@ -19,6 +21,10 @@ public class TeamInfo {
         this.area = area;
         this.city = city;
         this.position = position;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

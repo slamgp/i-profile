@@ -231,14 +231,14 @@ function prepareAllElements() {
 
     $(".saveImage").bind('click', function (event) {
         var file = $("#avatarImage").attr('src');
-        var  bytesOfFile =  file.replace('data:image/jpeg;base64,', "");
+        var bytesOfFile = file.replace('data:image/jpeg;base64,', "");
         bytesOfFile = bytesOfFile.replace('data:image/png;base64,', '')
         bytesOfFile = bytesOfFile.replace(' ', '+')
         sendUserChageRrequest("avatar", bytesOfFile);
         $("#saveImage").css("visibility", "hidden");
         $("#loadImageContext").css("visibility", "hidden");
 
-        $("#avatarContainer").css("backgroundImage",  'url(' + $("#avatarImage").attr('src') + ')')
+        $("#avatarContainer").css("backgroundImage", 'url(' + $("#avatarImage").attr('src') + ')')
     });
 }
 
@@ -279,12 +279,31 @@ function createRow(tableName, field1, field2, textEditId, type) {
 }
 
 function showCarier(carier) {
-    $("#carierContainer").css("visibility", "visible");
-    // if (carier != null && carier != undefined) {
-    //  for (i = 0; i < carier.length; i++) {
-    //   alert(carier[i].name);
-    // }
-    //  }
+    $("#deskContainer").css("visibility", "visible");
+    var topMargin = 160;
+    var topPading = 20;
+    if (carier != null && carier != undefined) {
+        for (i = 0; i < carier.length; i++) {
+
+            $('<table class = "carierTable" id =' + carier[i].id +' ></table>').appendTo( '#carierDataContainer' );
+            tableSelector = "#" + carier[i].id;
+            $(tableSelector).css("visibility", "visible");
+            var top = 5;
+            if (i > 0 ) {
+                top = i * topMargin + topPading
+            }
+            $(tableSelector).css("top", "" + top + "px");
+
+            createRow(tableSelector, "team:", carier[i].name, "team", "text");
+            createRow(tableSelector, "start priod:", carier[i].startPeriod, "startPeriod", "data");
+            createRow(tableSelector, "finish period:", carier[i].endPeriod, "finishPeriod", "data");
+            createRow(tableSelector, "position:", carier[i].position, "position", "text");
+            createRow(tableSelector, "team state:", carier[i].teamState, "teamState", "text");
+            createRow(tableSelector, "region:", carier[i].region, "region", "text");
+            createRow(tableSelector, "area:", carier[i].area, "area", "text");
+            createRow(tableSelector, "city:", carier[i].city, "city", "text");
+        }
+    }
 }
 
 function showUserData(data) {
@@ -309,14 +328,15 @@ function hideUserData() {
     hideUserCarier();
 }
 
-function hideUserAppearance () {
+function hideUserAppearance() {
     $("#appearanceContainer").css("visibility", "hidden");
     $(".appearanceTable").css("visibility", "visible");
     $("#appearanceContainer").empty();
 }
 
-function hideUserCarier () {
-    $("#carierContainer").css("visibility", "hidden");
+function hideUserCarier() {
+    $("#deskContainer").css("visibility", "hidden");
+    $("#carierDataContainer").empty();
 }
 
 

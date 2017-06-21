@@ -37,8 +37,8 @@ public class User  implements UserDetails {
         allName = "WOLF WOLF WOLF WOLF";
         position = "CB";
         appearance = new UserAppearance(29, 190, 90, "L");
-        TeamInfo teamInfo1 = new TeamInfo("SM-25", "01-01-2015", "-", "amator", "Kiev obl", "Brovarskiy", "Semypolki", "CB, LB, CM");
-        TeamInfo teamInfo2 = new TeamInfo("OVRUT", "01-01-2007", "01-01-2015", "amator", "Kiev obl", "Brovarskiy", "Semypolki", "CB, LB, CM");
+        TeamInfo teamInfo1 = new TeamInfo(0, "SM-25", "01-01-2015", "-", "amator", "Kiev obl", "Brovarskiy", "Semypolki", "CB, LB, CM");
+        TeamInfo teamInfo2 = new TeamInfo(1, "OVRUT", "01-01-2007", "01-01-2015", "amator", "Kiev obl", "Brovarskiy", "Semypolki", "CB, LB, CM");
         teamsInfo = new ArrayList<TeamInfo>();
         teamsInfo.add(teamInfo1);
         teamsInfo.add(teamInfo2);
