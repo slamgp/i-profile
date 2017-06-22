@@ -265,14 +265,14 @@ function addEditAppearanceAction() {
 function showUserAppearance(data) {
     $("#appearanceContainer").css("visibility", "visible");
     $(".appearanceTable").css("visibility", "visible");
-    createRow("#appearanceTable", "age:", data.age, "age", "number");
-    createRow("#appearanceTable", "high:", data.high, "high", "number");
-    createRow("#appearanceTable", "weight:", data.weight, "weight", "number");
-    createRow("#appearanceTable", "main foot:", data.mainFoot, "mainFoot", "text");
+    createAppearanceRow("#appearanceTable", "age:", data.age, "age", "number");
+    createAppearanceRow("#appearanceTable", "high:", data.high, "high", "number");
+    createAppearanceRow("#appearanceTable", "weight:", data.weight, "weight", "number");
+    createAppearanceRow("#appearanceTable", "main foot:", data.mainFoot, "mainFoot", "text");
     addEditAppearanceAction();
 }
 
-function createRow(tableName, field1, field2, textEditId, type) {
+function createAppearanceRow(tableName, field1, field2, textEditId, type) {
     $(tableName).append('<tr></tr>');
     $(tableName + '> tbody > tr:last').append('<td class = "caption">' + field1 + '</td>');
     $(tableName + '> tbody > tr:last').append('<td class = "textEdit" id = ' + textEditId + '> <p class= "dataInputParagraph" id = "caption">' + field2 + '</p> <input id = "value" class = "dataInput"' + 'type = ' + type + '></input></td>');
@@ -282,29 +282,82 @@ function showCarier(carier) {
     $("#deskContainer").css("visibility", "visible");
     var topMargin = 160;
     var topPading = 20;
+    var top = 5;
     if (carier != null && carier != undefined) {
         for (i = 0; i < carier.length; i++) {
 
             $('<table class = "carierTable" id =' + carier[i].id +' ></table>').appendTo( '#carierDataContainer' );
             tableSelector = "#" + carier[i].id;
             $(tableSelector).css("visibility", "visible");
-            var top = 5;
             if (i > 0 ) {
                 top = i * topMargin + topPading
             }
             $(tableSelector).css("top", "" + top + "px");
 
-            createRow(tableSelector, "team:", carier[i].name, "team", "text");
-            createRow(tableSelector, "start priod:", carier[i].startPeriod, "startPeriod", "data");
-            createRow(tableSelector, "finish period:", carier[i].endPeriod, "finishPeriod", "data");
-            createRow(tableSelector, "position:", carier[i].position, "position", "text");
-            createRow(tableSelector, "team state:", carier[i].teamState, "teamState", "text");
-            createRow(tableSelector, "region:", carier[i].region, "region", "text");
-            createRow(tableSelector, "area:", carier[i].area, "area", "text");
-            createRow(tableSelector, "city:", carier[i].city, "city", "text");
+            createCarierRow(tableSelector, "team:", carier[i].name, "name", "text");
+            createCarierRow(tableSelector, "start priod:", carier[i].startPeriod, "startPeriod", "date");
+            createCarierRow(tableSelector, "finish period:", carier[i].endPeriod, "endPeriod", "date");
+            createCarierRow(tableSelector, "position:", carier[i].position, "position", "text");
+            createCarierRow(tableSelector, "team state:", carier[i].teamState, "teamState", "text");
+            createCarierRow(tableSelector, "region:", carier[i].region, "region", "text");
+            createCarierRow(tableSelector, "area:", carier[i].area, "area", "text");
+            createCarierRow(tableSelector, "city:", carier[i].city, "city", "text");
         }
+        $("#addInfoButton").css("top", top + topMargin + topPading);
+    } else {
+        $("#addInfoButton").css("top", top);
     }
+    $("#addInfoButton").css("visibility", "visible");
+
+    addEditCarierAction();
 }
+
+function createCarierRow(tableName, field1, field2, textEditId, type) {
+    $(tableName).append('<tr></tr>');
+    $(tableName + '> tbody > tr:last').append('<td class = "caption">' + field1 + '</td>');
+    $(tableName + '> tbody > tr:last').append('<td class = "textEdit" id = ' + textEditId + '> <p class= "carierDataInputParagraph" id = "caption">' + field2 + '</p> <input id = "value" class = "carierDataInput"' + 'type = ' + type + '></input></td>');
+}
+
+function addEditCarierAction () {
+    $(".textEdit").bind('click', function () {
+        oldValue = $(this).find("#caption").text();
+        $(this).find("#caption").css("visibility", "hidden");
+        $(this).find("#value").css("visibility", "visible");
+        $(this).find("#value").val(oldValue);
+        $(this).find("#value").focus();
+    });
+
+    $(".carierDataInput").bind('change', function () {
+        $(this).parent().find("#caption").css("visibility", "visible");
+        $(this).parent().find("#value").css("visibility", "hidden");
+        callBackActionOnChange($(this).parent().find("#caption"), $(this).val());
+        sendUserCarierChageRrequest($(this).parent().parent().parent().parent().attr("id"), $(this).parent().attr("id"), $(this).val(), callBackActionOnChange, $(this).parent().find("#caption"));
+    });
+    $(".carierDataInput").bind('focusout', function () {
+        $(this).parent().find("#caption").css("visibility", "visible");
+        $(this).parent().find("#value").css("visibility", "hidden");
+    });
+}
+
+function sendUserCarierChageRrequest(carierId, field, value, callback, caption) {
+    $.ajax({
+        url: 'userCarierDataChange',
+        type: 'POST',
+        dataType: 'json',
+        data: JSON.stringify({"id": carierId, "change_field": field, "change_value": value}),
+        contentType: 'application/json',
+        mimeType: 'application/json',
+        success: function (data, textStatus) {
+            if ((callback != null) && (callback != undefined)) {
+                callback(caption, value);
+            }
+        },
+        error: function (e) {
+            console.log("ERROR: ", e);
+        }
+    });
+}
+
 
 function showUserData(data) {
     $("#userNameLable").text(data.login);
@@ -336,6 +389,7 @@ function hideUserAppearance() {
 
 function hideUserCarier() {
     $("#deskContainer").css("visibility", "hidden");
+    $("#addInfoButton").css("visibility", "hidden");
     $("#carierDataContainer").empty();
 }
 

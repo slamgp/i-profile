@@ -79,6 +79,7 @@
         <div class="carierDataContainer" id="carierDataContainer">
             <%--    <table class="carierTable" id="carierTable"></table>--%>
         </div>
+        <button class="addInfoButton" id="addInfoButton" title="Add new items"></button>
     </div>
 
     <ul class="main-menu">

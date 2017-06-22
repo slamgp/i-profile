@@ -25,10 +25,11 @@ div.userDetail {
     height: 36px;
     width: 480px;
 }
+
 label.userNameLabel {
     text-align: right;
     color: gold;
-    float:right;
+    float: right;
 }
 
 div.maincontent {
@@ -48,11 +49,13 @@ div.popUpContext {
     opacity: 0;
 }
 
-.maincontent, .autointification,.popUpContext { position: absolute; }
+.maincontent, .autointification, .popUpContext {
+    position: absolute;
+}
 
 table.registrationTable {
-    margin:auto;
-    background-color: rgba(250,250,250,0.5);
+    margin: auto;
+    background-color: rgba(250, 250, 250, 0.5);
     visibility: hidden;
     top: 0px;
     margin: 0px 0px 0px 155px;
@@ -67,9 +70,8 @@ td.buttonTd {
     text-align: center;
 }
 
-
 table.appearanceTable {
-    margin:auto;
+    margin: auto;
     top: 0px;
     margin: 0px 5px 5px 5px;
     position: absolute;
@@ -81,29 +83,29 @@ table.appearanceTable {
 table.appearanceTable td.caption {
     text-align: left;
     width: 120px;
-    font:   bold 18px Georgia, serif;
+    font: bold 18px Georgia, serif;
     cursor: default;
 }
 
 table.appearanceTable td.textEdit {
     text-align: left;
     width: 200px;
-    font:  italic bold 18px Georgia, serif;
-    cursor:text;
-    border-radius:5px;
+    font: italic bold 18px Georgia, serif;
+    cursor: text;
+    border-radius: 5px;
     padding: 0px 0px 0px 5px;
     overflow: hidden;
 }
 
 table.carierTable {
-    margin:auto;
+    margin: auto;
     top: 0px;
     margin: 0px 0px 0px 5px;
     position: absolute;
     height: 160px;
     width: 350px;
     visibility: hidden;
-    border-radius:5px;
+    border-radius: 5px;
     border-style: solid;
     border-color: green;
 }
@@ -111,93 +113,122 @@ table.carierTable {
 table.carierTable td.caption {
     text-align: left;
     width: 140px;
-    font:   bold 14px Georgia, serif;
+    font: bold 14px Georgia, serif;
     cursor: default;
 }
 
 table.carierTable td.textEdit {
     text-align: left;
-    width: 170px;
-    font:  italic bold 14px Georgia, serif;
-    cursor:text;
-    border-radius:5px;
+    width: 140px;
+    font: italic bold 14px Georgia, serif;
+    cursor: text;
+    border-radius: 5px;
     padding: 0px 0px 0px 5px;
     overflow: hidden;
 }
 
-table.carierTable p.dataInputParagraph {
+p.carierDataInputParagraph {
     position: absolute;
     text-align: left;
-    width: 170px;
+    width: 140px;
     margin: -8px 0px 0px 0px;
-    font:  italic bold 14px Georgia, serif;
-    cursor:text;
-    border-radius:5px;
+    font: italic bold 14px Georgia, serif;
+    cursor: text;
+    border-radius: 5px;
     padding: 0px 0px 0px 5px;
     overflow: hidden;
 }
 
-button.signButton{
-    background:url(../img/signIn.png) no-repeat;
-    cursor:pointer;
-    border:none;
-    width:32px;
-    height:32px;
+input.carierDataInput {
+    position: absolute;
+    text-align: left;
+    width: 140px;
+    height: 19px;
+    margin: -12px 0px 0px 0px;
+    width: 156px;
+    font: italic bold 14px Georgia, serif;
+    cursor: text;
+    border-radius: 5px;
+    padding: 0px 0px 0px 5px;
+    overflow: hidden;
+    background-color: rgb(220, 220, 220);
+    visibility: hidden;
+
+}
+
+button.signButton {
+    background: url(../img/signIn.png) no-repeat;
+    cursor: pointer;
+    border: none;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     position: absolute;
-    top:  4px;
+    top: 4px;
     left: 40px;
 }
 
 button.signOutButton {
-    background:url(../img/signOut.png) no-repeat;
-    cursor:pointer;
-    border:none;
-    width:32px;
-    height:32px;
+    background: url(../img/signOut.png) no-repeat;
+    cursor: pointer;
+    border: none;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     position: absolute;
-    top:  4px;
+    top: 4px;
     left: 40px;
     visibility: hidden;
 }
 
-button.registrationButton{
-    background:url(../img/registration.png) no-repeat;
-    cursor:pointer;
-    border:none;
-    width:32px;
-    height:32px;
+button.registrationButton {
+    background: url(../img/registration.png) no-repeat;
+    cursor: pointer;
+    border: none;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     position: absolute;
-    top:  4px;
+    top: 4px;
     left: 0px;
 }
 
-button.sentButton{
-    cursor:pointer;
+button.sentButton {
+    cursor: pointer;
     width: 100px;
     font-weight: bold;
 }
 
+button.addInfoButton {
+    background: url(../img/button_add.png) no-repeat;
+    cursor: pointer;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    position: absolute;
+    top: 4px;
+    left: 325px;
+    visibility: hidden;
+}
 
-.popUp{
+.popUp {
     top: 77px;
     left: 335px;
     position: absolute;
     height: 80px;
     width: 150px;
-    background-color: rgba(250,250,250,0.7);
+    background-color: rgba(250, 250, 250, 0.7);
     border-radius: 5px;
     box-shadow: 0px 0px 10px #000;
     text-align: center;
 }
+
 .popupAuthentification {
     top: 56px;
 }
 
-
-.popupText{
+.popupText {
     color: red;
 }
 
@@ -207,16 +238,15 @@ div.avatarContainer {
     position: absolute;
     height: 150px;
     width: 150px;
-    background-color: rgba(250,250,250,0.7);
-    border-radius:10px;
+    background-color: rgba(250, 250, 250, 0.7);
+    border-radius: 10px;
     background-repeat: no-repeat;
-    background-size:100% 100%;
+    background-size: 100% 100%;
     box-shadow: 0px 0px 10px #000;
     text-align: center;
     visibility: hidden;
     cursor: pointer;
 }
-
 
 div.loadImageContext {
     position: absolute;
@@ -225,8 +255,8 @@ div.loadImageContext {
     height: 190px;
     width: 150px;
     visibility: hidden;
-    background-color: rgba(250,250,250,0.5);
-    border-radius:5px;
+    background-color: rgba(250, 250, 250, 0.5);
+    border-radius: 5px;
 }
 
 input.saveImage {
@@ -237,15 +267,15 @@ input.saveImage {
     width: 60px;
 }
 
-input.loadImage  {
+input.loadImage {
     position: absolute;
     height: 40px;
     width: 150px;
     margin: 70px 60px 0px 5px;
-    opacity:0;
+    opacity: 0;
 }
 
-label.loadImageLabel  {
+label.loadImageLabel {
     top: 70px;
     margin: 0px 0px 0px 0px;
     height: 40px;
@@ -264,13 +294,13 @@ input.saveImage, label.loadImageLabel {
 }
 
 img.avatarImage {
-    border-radius:10px;
+    border-radius: 10px;
     position: absolute;
     top: 0px;
     margin: 0px 0px 0px 0px;
     height: 150px;
     width: 150px;
-    background-color:  rgba(255, 255, 0,0.3);
+    background-color: rgba(255, 255, 0, 0.3);
 }
 
 div.nameContainer {
@@ -279,13 +309,13 @@ div.nameContainer {
     position: absolute;
     height: 50px;
     width: 380px;
-    background-color: rgba(250,250,250,0.7);
-    border-radius:10px;
+    background-color: rgba(250, 250, 250, 0.7);
+    border-radius: 10px;
     box-shadow: 0px 0px 10px #000;
     text-align: center;
     vertical-align: center;
     visibility: hidden;
-    font:  italic bold 22px/30px Georgia, serif;
+    font: italic bold 22px/30px Georgia, serif;
 }
 
 div.nameContainer {
@@ -294,13 +324,13 @@ div.nameContainer {
     position: absolute;
     height: 50px;
     width: 380px;
-    background-color: rgba(250,250,250,0.7);
-    border-radius:10px;
+    background-color: rgba(250, 250, 250, 0.7);
+    border-radius: 10px;
     box-shadow: 0px 0px 10px #000;
     text-align: center;
     vertical-align: center;
     visibility: hidden;
-    font:  italic bold 22px/30px Georgia, serif;
+    font: italic bold 22px/30px Georgia, serif;
     cursor: text;
 }
 
@@ -310,13 +340,13 @@ div.appearanceContainer {
     position: absolute;
     height: 100px;
     width: 380px;
-    background-color: rgba(250,250,250,0.7);
-    border-radius:10px;
+    background-color: rgba(250, 250, 250, 0.7);
+    border-radius: 10px;
     box-shadow: 0px 0px 10px #000;
     text-align: left;
     vertical-align: center;
     visibility: hidden;
-    font:  italic bold 18px Georgia, serif;
+    font: italic bold 18px Georgia, serif;
     overflow: hidden;
 }
 
@@ -326,13 +356,13 @@ div.deskContainer {
     position: absolute;
     height: 480px;
     width: 380px;
-    background-color: rgba(250,250,250, 0.7);
-    border-radius:10px;
+    background-color: rgba(250, 250, 250, 0.7);
+    border-radius: 10px;
     box-shadow: 0px 0px 10px #000;
     text-align: left;
     vertical-align: center;
     visibility: hidden;
-    font:  italic bold 18px Georgia, serif;
+    font: italic bold 18px Georgia, serif;
     overflow: hidden;
 }
 
@@ -342,12 +372,12 @@ div.carierDataContainer {
     position: absolute;
     height: 470px;
     width: 370px;
-    border-radius:10px;
+    border-radius: 10px;
     box-shadow: 0px 0px 10px #000;
     text-align: left;
     vertical-align: center;
     /*visibility: hidden;*/
-    font:  italic bold 18px Georgia, serif;
+    font: italic bold 18px Georgia, serif;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -361,9 +391,8 @@ p.nameParagraph {
     width: 370px;
     overflow: hidden;
     vertical-align: center;
-    border-radius:5px;
+    border-radius: 5px;
 }
-
 
 input.nameInput {
     position: absolute;
@@ -373,23 +402,22 @@ input.nameInput {
     height: 30px;
     width: 350px;
     visibility: hidden;
-    border-radius:5px;
+    border-radius: 5px;
     background-color: rgb(220, 220, 220);
-    font:  italic bold 22px/30px Georgia, serif;
+    font: italic bold 22px/30px Georgia, serif;
     vertical-align: center;
     text-align: center;
 
 }
-
 
 p.dataInputParagraph {
     position: absolute;
     text-align: left;
     width: 200px;
     margin: -12px 0px 0px 0px;
-    font:  italic bold 18px Georgia, serif;
-    cursor:text;
-    border-radius:5px;
+    font: italic bold 18px Georgia, serif;
+    cursor: text;
+    border-radius: 5px;
     padding: 0px 0px 0px 5px;
     overflow: hidden;
 }
@@ -398,12 +426,12 @@ input.dataInput {
     position: absolute;
     text-align: left;
     width: 200px;
-    height:19px;
+    height: 19px;
     margin: -12px 0px 0px 0px;
     width: 200px;
-    font:  italic bold 16px Georgia, serif;
-    cursor:text;
-    border-radius:5px;
+    font: italic bold 16px Georgia, serif;
+    cursor: text;
+    border-radius: 5px;
     padding: 0px 0px 0px 5px;
     overflow: hidden;
     background-color: rgb(220, 220, 220);
@@ -411,18 +439,18 @@ input.dataInput {
 
 }
 
-.dataInput:focus,.nameInput:focus {
+.dataInput:focus, .nameInput:focus {
     cursor: text;
 }
 
-.dataInput:hover ,.textEdit:hover, .nameParagraph:hover, p.dataInputParagraph :hover {
-    background-color: rgba(255, 255, 0,0.3);
+.dataInput:hover, .textEdit:hover, .nameParagraph:hover, p.dataInputParagraph :hover {
+    background-color: rgba(255, 255, 0, 0.3);
 }
 
 /* MENU */
 .main-menu {
 
-    border-radius:10px;
+    border-radius: 10px;
     position: absolute;
     top: 210px;
     margin: 0px 0px 0px 10px;
@@ -434,7 +462,7 @@ input.dataInput {
     text-decoration: none;
     color: black;
     border: 1px solid #0B9607;
-    background-color: rgba(250,250,250, 0.7);
+    background-color: rgba(250, 250, 250, 0.7);
     visibility: hidden;
 }
 
@@ -442,7 +470,6 @@ input.dataInput {
     height: 25px;
     width: 110px;
 }
-
 
 .main-menu > li:hover {
     background: #f5f5f5;
