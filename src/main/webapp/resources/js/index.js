@@ -403,4 +403,5 @@ $(document).ready(function () {
     sentsCurrentUserRequestPost();
     addEditAction();
     prepareAllElements();
+    //after loading
 });
